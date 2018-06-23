@@ -7,3 +7,6 @@ link vimrc to C:\Users\username\_vimrc
 Unix:
 clone to ~/.vim
 link vimrc to ~/.vimrc
+
+
+After cloning open vim and run `PlugInstall` to install plugins.
