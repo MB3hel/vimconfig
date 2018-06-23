@@ -15,19 +15,25 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'ynkdir/vim-vimlparser'
 Plug 'syngan/vim-vimlint'
-Plug 'vim-syntastic/syntastic'
+Plug 'neomake/neomake'
 
 call plug#end()
 
 " Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_check_header = 1
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_cpp_check_header = 1
+
+" Neomake settings
+" Full config: when writing or reading a buffer, and on changes in insert and
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+let g:neomake_open_list = 2 " Auto open error list (location list)
 
 " Allow Project specific .vimrc files (safe commands only)
 set exrc
