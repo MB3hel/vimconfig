@@ -2,13 +2,10 @@ This repo holds my vim configuration (vimrc) and the vim-plug plugin manager.
 
 Windows:
 
-clone to C:\Users\username\vimfiles
-link vimrc to C:\Users\username\_vimrc
+clone to %LOCAL_APP_DATA%/nvim
 
 Unix:
 
-clone to ~/.vim
-link vimrc to ~/.vimrc
-
+clone to ~/.config/nvim/
 
 After cloning open vim and run `PlugInstall` to install plugins.
