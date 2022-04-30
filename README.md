@@ -1,11 +1,29 @@
-This repo holds my vim configuration (vimrc) and the vim-plug plugin manager.
+# vimconfig
 
-Windows:
+This repo holds my vim configuration (vimrc)
 
-clone to %LOCAL_APP_DATA%/nvim
 
-Unix:
+## Installation
 
-clone to ~/.config/nvim/
+First clone this repository
 
-After cloning open vim and run `PlugInstall` to install plugins.
+```sh
+# Unix
+git clone git@github.com:MB3hel/vimconfig.git ~/.vim/
+
+# Windows (powershell)
+git clone git@github.com:MB3hel/vimconfig.git $HOME/vimfiles/
+```
+
+
+Next, install the `vim-plug` plugin manager using the following command
+
+```sh
+# Unix
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Windows (powershell)
+iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | ni $HOME/vimfiles/autoload/plug.vim -Force
+```
+
+After cloning open vim and run `:PlugInstall` to install plugins.
