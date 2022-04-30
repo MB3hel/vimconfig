@@ -26,4 +26,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | ni $HOME/vimfiles/autoload/plug.vim -Force
 ```
 
-After cloning open vim and run `:PlugInstall` to install plugins.
+After cloning open vim and run `:PlugInstall` to install plugins. This can be done by running vim (just ignore errors on startup from loading the vimrc). Then run `:PlugInstall`. Alternatively, execute `vim -c ":PlugInstall"`. After running PlugInstall the errors while opening vim should go away.
+
+
