@@ -17,6 +17,12 @@ set expandtab
 " Preserve indent
 set smartindent
 
+" Use system clipboard by default, if compiled with clipboard feature
+" Often, must install gvim or vim-gtk3 to get clipboard feature on linux
+if has('clipboard')
+    set clipboard=unnamedplus
+endif
+
 
 " -----------------------------------------------------------------------------
 " vim-plug plugin manager
