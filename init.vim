@@ -3,6 +3,12 @@
 " General Configuration
 " -----------------------------------------------------------------------------
 
+" No linewrap by default
+set nowrap
+
+" Show line numbers by default
+set number
+
 " Wrap to next/previous line
 set whichwrap+=<,>,h,l,[,]
 
