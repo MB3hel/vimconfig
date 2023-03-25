@@ -55,8 +55,6 @@ call plug#begin()
     Plug 'ap/vim-buftabline'
     Plug 'qpkorr/vim-bufkill'
     Plug 'preservim/nerdtree'
-    Plug 'xolox/vim-session'
-    Plug 'xolox/vim-misc'
 call plug#end()
 
 
@@ -71,15 +69,4 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 
 " Change enter key to open file in previous window, BUT keep tree focused
 let NERDTreeCustomOpenArgs = {'file': {'where':'p', 'keepopen':1, 'stay':1}}
-
-
-" -----------------------------------------------------------------------------
-" vim-session config
-" -----------------------------------------------------------------------------
-
-let g:session_directory = '.'
-let g:session_default_name = 'Session'
-let g:session_default_overwrite = 1
-let g:session_autosave = 'no'
-let g:session_autoload = 'no'
 
