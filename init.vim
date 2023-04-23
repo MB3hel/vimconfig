@@ -71,13 +71,32 @@ lua require('bufdel').setup{next = 'tabs', quit = false}
 " NerdTree config
 " -----------------------------------------------------------------------------
 
+" Don't allow nerdtree or netrw to open when invoking vim directory_name
+" If this happens, it causes two NERDTree buffers
+" Which causes BIG issues with 'prevent buffers from replacing NERDTree' stuff
+" This leaves an empty buffer (with blank name)
+" The isdirectory autovmd VimEnter code will close the empty buffer and
+" replace it  with a 'new' buffer named '*'
+" Thus, running vim directory
+" Is the same as running cd directory; vim then opening NERDTree panel
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+let g:NERDTreeHijackNetrw = 0
+
 " Start NERDTree when Vim starts with a directory argument.
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') | execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') | execute 'NERDTreeToggle' argv()[0] | wincmd p | enew | bprev | b#|bd# | execute 'cd '.argv()[0] | endif
 
 " Change enter key to open file in previous window, BUT keep tree focused
 let NERDTreeCustomOpenArgs = {'file': {'where':'p', 'keepopen':1, 'stay':1}}
 
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Don't let other buffers replace nerdtree in it's window
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " -----------------------------------------------------------------------------
 " Custom guide / help
