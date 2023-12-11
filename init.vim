@@ -32,6 +32,10 @@ set smartindent
 set clipboard+=unnamedplus
 
 " -----------------------------------------------------------------------------
+
+
+
+" -----------------------------------------------------------------------------
 " Keyboard shortcuts
 " -----------------------------------------------------------------------------
 
@@ -45,6 +49,8 @@ nnoremap <C-V> :vsplit<CR>
 
 " NerdTree keymaps
 nnoremap <C-F> :NERDTreeToggle<CR>
+
+" -----------------------------------------------------------------------------
 
 
 
@@ -61,10 +67,17 @@ call plug#begin()
 call plug#end()
 
 " -----------------------------------------------------------------------------
+
+
+
+" -----------------------------------------------------------------------------
 " BufDel config
 " -----------------------------------------------------------------------------
 
 lua require('bufdel').setup{next = 'tabs', quit = false}
+
+" -----------------------------------------------------------------------------
+
 
 
 " -----------------------------------------------------------------------------
@@ -97,6 +110,10 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+" -----------------------------------------------------------------------------
+
+
 
 " -----------------------------------------------------------------------------
 " Custom guide / help
@@ -137,4 +154,6 @@ command! -nargs=0 MyGuide :call MyGuide()
 
 " Startup message
 autocmd VimEnter * echo "Run :MyGuide for workflow info."
+
+" -----------------------------------------------------------------------------
 
