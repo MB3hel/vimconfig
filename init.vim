@@ -94,11 +94,22 @@ lua require("nvim-tree").setup({
 " Diagnostics configuration
 " -----------------------------------------------------------------------------
 
-" Enable diagnostics updates in insert mode
-" allows lsp errors to be shown without leaving insert mode
+" Default diagnostic settings
+" can change these in project-specific config.vim files
 lua vim.diagnostic.config({
-\   update_in_insert = true
-\})
+\       signs = { 
+\           severity = { min = vim.diagnostic.severity.WARN }
+\       },
+\       virtual_text = {
+\           severity = { min = vim.diagnostic.severity.WARN }
+\       },
+\       underline = {
+\           severity = { min = vim.diagnostic.severity.WARN }
+\       },
+\       update_in_insert = true,
+\       severity_sort = true
+\   })
+
 
 " Always show the sign column (where "E" is shown for lsp errors)
 " By default, this is hidden if there are no signs
