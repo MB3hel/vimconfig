@@ -5,12 +5,18 @@ lua << EOF
     -- Store directory this script is located in
     local script_dir = vim.fn.expand('<script>:hp')
     
-    -- Directory containing compile_commands.json
-    local build_dir = "build/"
-
     -- Start language server
     require('lspconfig').clangd.setup{
-        cmd = { "clangd", "--compile-commands-dir=" .. build_dir },
+        cmd = { 
+            "clangd", 
+
+            -- Directory contianing compile_commands.json
+            "--compile-commands-dir=build/",
+            
+            -- Completion settings
+            "--header-insertion=never",
+            "--all-scopes-completion=false"
+        },
 
         -- Uncomment to use the directory with this file as the root directory
         -- instead of searching for parent directory with .clangd, compile_commands.json, etc
@@ -18,7 +24,16 @@ lua << EOF
             return script_dir
         end,
 
-        -- Enable completion using nvim-cmp
+        -- Proper integration with nvim-cmp plugin
         capabilities = require('cmp_nvim_lsp').default_capabilities()
     }
+    
+    -- nvim-cmp settings
+    require('cmp').setup { 
+        completion = {
+            -- Uncomment for manual completion only
+            -- autocomplete = false
+        }
+    }
 EOF
+

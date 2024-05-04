@@ -1,6 +1,6 @@
-" Required (from pip): python-lsp-server and pylint
-" Install pylint in venv if using
-" Other tools can be enabled (default here is only pylint)
+" Required (from pip): python-lsp-server, pylint, and rope
+" Install pylint in venv if using one
+
 " Can add args to pylint for things such as enabling C extension processing
 " Eg: --extension-pkg-whitelist=PySide6
 
@@ -73,13 +73,25 @@ lua << EOF
                         }
                     },
                     rope_completion = {
-                        enabled = false
+                        enabled = true
                     },
                     yapf = {
                         enabled = false
                     }
                 }
             }
+        },
+
+        -- Proper integration with nvim-cmp plugin
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
+    }
+
+    -- nvim-cmp settings
+    require('cmp').setup { 
+        completion = {
+            -- Uncomment for manual completion only
+            -- autocomplete = false
         }
     }
+
 EOF
