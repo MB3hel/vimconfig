@@ -31,6 +31,12 @@ set smartindent
 " Note: Must install xclip (x11) or wl-clipboard (wayland)
 set clipboard+=unnamedplus
 
+" Case insensative tab completion for file / buffer names
+set wildignorecase
+
+" Faster switching of buffers
+nnoremap <leader>l :ls<CR>:b<space>
+
 " -----------------------------------------------------------------------------
 
 
