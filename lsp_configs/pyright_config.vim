@@ -1,3 +1,6 @@
+" Must install pyright using pip
+" Install in venv if using one
+
 lua << EOF
     -- Store directory this script is located in
     local script_dir = vim.fn.expand('<script>:hp')

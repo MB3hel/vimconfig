@@ -1,3 +1,6 @@
+" Must have cland installed on the system
+" Build system must generate compile_commands.json
+
 lua << EOF
     -- Store directory this script is located in
     local script_dir = vim.fn.expand('<script>:hp')

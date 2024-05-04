@@ -1,3 +1,9 @@
+" Required (from pip): python-lsp-server and pylint
+" Install pylint in venv if using
+" Other tools can be enabled (default here is only pylint)
+" Can add args to pylint for things such as enabling C extension processing
+" Eg: --extension-pkg-whitelist=PySide6
+
 lua << EOF
     -- Store directory this script is located in
     local script_dir = vim.fn.expand('<script>:hp')
@@ -55,7 +61,8 @@ lua << EOF
                         enabled = false
                     },
                     pylint = {
-                        enabled = true
+                        enabled = true,
+                        args = {}
                     },
                     rope_autoimport = {
                         completions = {
