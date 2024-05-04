@@ -119,6 +119,7 @@ lua vim.diagnostic.config({
 set signcolumn=yes
 
 " Keybind to show floating diagnostics winodow
-nnoremap <leader>d :lua vim.diagnostic.open_float()<CR>
+nnoremap <C-W>d :lua vim.diagnostic.open_float()<CR>
 
 " -----------------------------------------------------------------------------
+
