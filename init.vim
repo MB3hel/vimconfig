@@ -88,3 +88,23 @@ lua require("nvim-tree").setup({
 
 " -----------------------------------------------------------------------------
 
+
+
+" -----------------------------------------------------------------------------
+" Diagnostics configuration
+" -----------------------------------------------------------------------------
+
+" Enable diagnostics updates in insert mode
+" allows lsp errors to be shown without leaving insert mode
+lua vim.diagnostic.config({
+\   update_in_insert = true
+\})
+
+" Always show the sign column (where "E" is shown for lsp errors)
+" By default, this is hidden if there are no signs
+" but with errors updating in insert mode this causes
+" text to be shifted right by a column when an error is detected
+" Showing this all the time prevents this issue.
+set signcolumn=yes
+
+" -----------------------------------------------------------------------------
