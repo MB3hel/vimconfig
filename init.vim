@@ -41,8 +41,12 @@ set clipboard+=unnamedplus
 
 " Note: Run PlugInstall or PlugUpdate after changes
 call plug#begin()
-    Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-tree/nvim-tree.lua'          " File tree plugin
+    Plug 'neovim/nvim-lspconfig'            " Configs for nvim's builtin lsp
+    Plug 'hrsh7th/nvim-cmp'                 " Autocomplete plugin
+    Plug 'hrsh7th/cmp-nvim-lsp'             " LSP sources for nvim-cmp
+    Plug 'hrsh7th/cmp-vsnip'                " vsnip sources for nvim-cmp
+    Plug 'hrsh7th/vim-vsnip'                " Snippets plugin
 call plug#end()
 
 " -----------------------------------------------------------------------------
@@ -120,6 +124,63 @@ set signcolumn=yes
 
 " Keybind to show floating diagnostics winodow
 nnoremap <C-W>d :lua vim.diagnostic.open_float()<CR>
+
+" -----------------------------------------------------------------------------
+
+
+
+" -----------------------------------------------------------------------------
+" Autocompletion
+" -----------------------------------------------------------------------------
+
+lua << EOF
+    local cmp = require('cmp')
+    cmp.setup({
+        formatting = {
+            format = function(_, item)
+                -- Limit width of items to 20 characters
+                -- so suggestion window is not massive
+                item.abbr = string.sub(item.abbr, 1, 20)
+                -- item.menu = ""
+                -- item.kind = ""
+                return item
+            end
+        },
+        snippet = {
+            expand = function(args)
+                vim.fn["vsnip#anonymous"](args.body)
+            end
+        },
+        mapping = cmp.mapping.preset.insert({
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<CR>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true
+            },
+            ['<Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                else
+                    fallback()
+                end
+            end, { 'i', 's' }),
+            ['<S-Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                else
+                    fallback()
+                end
+            end, { 'i', 's' }),
+        }),
+        sources = {
+            { name = 'nvim_lsp' },
+            { name = 'vsnip' }
+        }
+    })
+EOF
+
+" Limit menu height
+set pumheight=30
 
 " -----------------------------------------------------------------------------
 

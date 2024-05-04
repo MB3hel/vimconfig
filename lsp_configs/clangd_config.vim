@@ -16,6 +16,9 @@ lua << EOF
         -- instead of searching for parent directory with .clangd, compile_commands.json, etc
         root_dir = function(fname)
             return script_dir
-        end
+        end,
+
+        -- Enable completion using nvim-cmp
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
     }
 EOF
