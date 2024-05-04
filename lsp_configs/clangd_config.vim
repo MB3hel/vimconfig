@@ -1,9 +1,9 @@
 lua << EOF
+    -- Store directory this script is located in
+    local script_dir = vim.fn.expand('<script>:hp')
+    
     -- Directory containing compile_commands.json
-    -- Uncomment one
     local build_dir = "build/"
-    -- local build_dir = "build/PRESET1"
-    -- local build_dir = "build/PRESET2"
 
     -- Start language server
     require('lspconfig').clangd.setup{
@@ -12,7 +12,7 @@ lua << EOF
         -- Uncomment to use the directory with this file as the root directory
         -- instead of searching for parent directory with .clangd, compile_commands.json, etc
         root_dir = function(fname)
-            return vim.fn.expand('<script>:hp')
+            return script_dir
         end
     }
 EOF
