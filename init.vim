@@ -128,8 +128,10 @@ lua vim.diagnostic.config({
 " Showing this all the time prevents this issue.
 set signcolumn=yes
 
-" Keybind to show floating diagnostics winodow
+" Keybinds (match nvim 0.10+ defaults)
 nnoremap <C-W>d :lua vim.diagnostic.open_float()<CR>
+nnoremap [d :lua vim.diagnostic.goto_prev()<CR>
+nnoremap ]d :lua vim.diagnostic.goto_next()<CR>
 
 " -----------------------------------------------------------------------------
 
