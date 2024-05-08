@@ -1,5 +1,5 @@
 -- Load shared common (vim / nvim) config
-vim.cmd('source' .. vim.fn.expand('<script>:hp') .. '/vimrc')
+vim.cmd('source ' .. vim.fn.expand('<script>:hp') .. '/vimrc')
 
 --------------------------------------------------------------------------------
 -- Plugin installation
