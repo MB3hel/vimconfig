@@ -1,29 +1,27 @@
 # vimconfig
 
-This repo holds my neovim configuration (init.vim)
+This repo holds my vim and neovim configuration
 
+- vim setup does not use plugins and is intended to be usable in scenarios where I am unable to install plugins / neovim
+- neovim is setup using plugins to add additional features
+
+Init files:
+
+- `vimrc` is loaded by vim and neovim
+- `init.lua` is loaded by neovim only (loads `vimrc`)
+
+Many functions are available that can be called from a `.lvimrc` file in a 
+project directory (`:source .lvimrc`)
+
+Some configuration templates that can be copied into `.lvimrc` are located in `config_template`
 
 ## Installation
 
-Clone repo
-
 ```sh
-# Unix
-git clone git@github.com:MB3hel/vimconfig.git ~/.config/nvim
-
-# Windows (powershell)
-git clone git@github.com:MB3hel/vimconfig.git $Env:LOCALAPPDATA\nvim\
+git clone git@github.com:MB3hel/vimconfig.git ~/.vimconfig
+python3 install.py
 ```
 
-Update vim-plug
+Running the install script will create symlinks to the correct files (requires admin or developer mode on windows).
 
-```sh
-nvim +PlugUpgrade
-```
-
-Install plugins
-
-```sh
-nvim +PlugInstall
-```
-
+It will also run `PlugUpdate` in nvim to ensure plugins are installed and up to date.

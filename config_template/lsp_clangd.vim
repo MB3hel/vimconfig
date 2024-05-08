@@ -1,4 +1,4 @@
-" Must have cland installed on the system
+" Must have clangd installed on the system
 " Build system must generate compile_commands.json
 
 lua << EOF
