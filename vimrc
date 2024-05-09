@@ -35,6 +35,8 @@ set clipboard=unnamedplus           " System clipboard
                                     " On Linux requires xclip or wl-clipboard
 set whichwrap+=<,>,h,l,[,]          " Wrap between lines 
 set backspace=indent,eol,start      " Fixes backspace (mostly on windows)
+set cc=80                           " Default color column (right margin)
+highlight ColorColumn ctermbg=235   " Color for color column
 
 " Indentation
 call IndentSpaces(4)                " Default to 4 space indentation
