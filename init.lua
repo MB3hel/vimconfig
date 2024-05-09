@@ -94,3 +94,35 @@ cmp.setup({
 -- Limit menu height
 vim.opt.pumheight=30
 --------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- Functions for use in .lvimrc files
+--------------------------------------------------------------------------------
+function disable_autocomplete()
+    require('cmp').setup { 
+        completion = {
+            autocomplete = false
+        }
+    }
+end
+
+function enable_autocomplete()
+    require('cmp').setup { 
+        completion = {
+            autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }
+        }
+    }
+end
+
+function start_lsp_pyright()
+    require('lspconfig').pyright.setup{
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
+    }
+end
+
+function start_lsp_clangd()
+    require('lspconfig').clangd.setup{
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
+    }
+end
+--------------------------------------------------------------------------------

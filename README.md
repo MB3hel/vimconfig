@@ -13,8 +13,6 @@ Init files:
 Many functions are available that can be called from a `.lvimrc` file in a 
 project directory (`:source .lvimrc`)
 
-Some configuration templates that can be copied into `.lvimrc` are located in `config_template`
-
 ## Installation
 
 ```sh
