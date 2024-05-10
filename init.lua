@@ -114,15 +114,17 @@ function enable_autocomplete()
     }
 end
 
-function start_lsp_pyright()
+function start_lsp_pyright(extra_args)
     require('lspconfig').pyright.setup{
-        capabilities = require('cmp_nvim_lsp').default_capabilities()
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        cmd = { 'pyright-langserver', '--stdio', unpack(extra_args) }
     }
 end
 
-function start_lsp_clangd()
+function start_lsp_clangd(extra_args)
     require('lspconfig').clangd.setup{
-        capabilities = require('cmp_nvim_lsp').default_capabilities()
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        cmd = { 'clangd', unpack(extra_args) }
     }
 end
 --------------------------------------------------------------------------------
