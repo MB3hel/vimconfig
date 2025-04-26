@@ -13,6 +13,11 @@ Init files:
 Many functions are available that can be called from a `.lvimrc` file in a 
 project directory (`:source .lvimrc`)
 
+## Versions
+
+- nvim 0.11.0+
+- vim (probably any recentish version)
+
 ## Installation
 
 ```sh

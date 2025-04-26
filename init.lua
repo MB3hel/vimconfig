@@ -9,8 +9,6 @@ vim.call('plug#begin')
 Plug 'neovim/nvim-lspconfig'        -- Language server configs
 Plug 'hrsh7th/nvim-cmp'             -- Autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'         -- Autocomplete source for lang server
-Plug 'hrsh7th/cmp-vsnip'            -- Autocomplete source for vnsip
-Plug 'hrsh7th/vim-vsnip'            -- Snippets plugin
 vim.call('plug#end')
 --------------------------------------------------------------------------------
 
@@ -37,9 +35,9 @@ vim.diagnostic.config({
 vim.opt.signcolumn="yes"
     
 -- Keybinds (matching defaults in nvim 0.10+)
-vim.api.nvim_set_keymap('n', '<C-W>d', ':lua vim.diagnostic.open_float()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', '[d', ':lua vim.diagnostic.goto_prev()<CR>', {noremap=true})
-vim.api.nvim_set_keymap('n', ']d', ':lua vim.diagnostic.goto_next()<CR>', {noremap=true})
+-- vim.api.nvim_set_keymap('n', '<C-W>d', ':lua vim.diagnostic.open_float()<CR>', {noremap=true})
+-- vim.api.nvim_set_keymap('n', '[d', ':lua vim.diagnostic.goto_prev()<CR>', {noremap=true})
+-- vim.api.nvim_set_keymap('n', ']d', ':lua vim.diagnostic.goto_next()<CR>', {noremap=true})
 --------------------------------------------------------------------------------
 
 
@@ -57,11 +55,6 @@ cmp.setup({
             -- item.menu = ""
             -- item.kind = ""
             return item
-        end
-    },
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
         end
     },
     mapping = cmp.mapping.preset.insert({
@@ -86,13 +79,12 @@ cmp.setup({
         end, { 'i', 's' }),
     }),
     sources = {
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' }
+        { name = 'nvim_lsp' }
     }
 })
 
 -- Limit menu height
-vim.opt.pumheight=30
+-- vim.opt.pumheight=30
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
@@ -115,16 +107,18 @@ function enable_autocomplete()
 end
 
 function start_lsp_pyright(extra_args)
-    require('lspconfig').pyright.setup{
+    vim.lsp.config('pyright', {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
         cmd = { 'pyright-langserver', '--stdio', unpack(extra_args) }
-    }
+    })
+    vim.lsp.enable('pyright')
 end
 
 function start_lsp_clangd(extra_args)
-    require('lspconfig').clangd.setup{
+    vim.lsp.config('clangd', {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
         cmd = { 'clangd', unpack(extra_args) }
-    }
+    })
+    vim.lsp.enable('clangd')
 end
 --------------------------------------------------------------------------------
