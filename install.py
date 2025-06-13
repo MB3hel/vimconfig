@@ -58,8 +58,13 @@ print("Done vim.")
 os.makedirs(nvim_dir)
 os.symlink(os.path.join(script_dir, "vimrc"), os.path.join(nvim_dir, "vimrc"))
 os.symlink(os.path.join(script_dir, "init.lua"), os.path.join(nvim_dir, "init.lua"))
-os.makedirs(os.path.join(nvim_dir, "autoload"))
-urllib.request.urlretrieve("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim", 
-                           os.path.join(nvim_dir, "autoload", "plug.vim"))
-subprocess.run(["nvim", "+PlugUpdate", "+qa"])
+
+# Setup packages for nvim
+# Using vim8+ & nvim package system instead of 3rd party plugin manager
+pkg_dir = os.path.join(nvim_dir, "pack", "nvim", "start")
+os.makedirs(pkg_dir)
+os.system(f"git clone https://github.com/neovim/nvim-lspconfig.git -b v1.8.0 {pkg_dir}/nvim-lspconfig")
+os.system(f"git clone https://github.com/hrsh7th/nvim-cmp.git -b v0.0.2 {pkg_dir}/nvim-cmp")
+os.system(f"git clone https://github.com/hrsh7th/cmp-nvim-lsp.git -b main {pkg_dir}/cmp-nvim-lsp")
+
 print("Done nvim.")

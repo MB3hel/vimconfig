@@ -2,19 +2,6 @@
 vim.cmd('source ' .. vim.fn.expand('<script>:hp') .. '/vimrc')
 
 --------------------------------------------------------------------------------
--- Plugin installation
---------------------------------------------------------------------------------
-local Plug = vim.fn['plug#']
-vim.call('plug#begin')
-Plug 'neovim/nvim-lspconfig'        -- Language server configs
-Plug 'hrsh7th/nvim-cmp'             -- Autocomplete
-Plug 'hrsh7th/cmp-nvim-lsp'         -- Autocomplete source for lang server
-vim.call('plug#end')
---------------------------------------------------------------------------------
-
-
-
---------------------------------------------------------------------------------
 -- Diagnostics settings
 --------------------------------------------------------------------------------
 vim.diagnostic.config({
