@@ -1,6 +1,11 @@
 -- Load shared common (vim / nvim) config
 vim.cmd('source ' .. vim.fn.expand('<script>:hp') .. '/vimrc')
 
+-- Revert to default vim colorscheme instead of nvim 0.10+'s new default
+-- vim.cmd('colorscheme vim')
+-- vim.cmd('set notermguicolors')
+-- vim.cmd('highlight ColorColumn ctermbg=238')
+
 --------------------------------------------------------------------------------
 -- Diagnostics settings
 --------------------------------------------------------------------------------
@@ -20,7 +25,7 @@ vim.diagnostic.config({
 
 -- Always show sign column (even if there are no errors)
 vim.opt.signcolumn="yes"
-    
+ 
 -- Keybinds (matching defaults in nvim 0.10+)
 -- vim.api.nvim_set_keymap('n', '<C-W>d', ':lua vim.diagnostic.open_float()<CR>', {noremap=true})
 -- vim.api.nvim_set_keymap('n', '[d', ':lua vim.diagnostic.goto_prev()<CR>', {noremap=true})

@@ -28,3 +28,14 @@ python3 install.py
 Running the install script will create symlinks to the correct files (requires admin or developer mode on windows).
 
 It will also run `PlugUpdate` in nvim to ensure plugins are installed and up to date.
+
+
+## Example .lvimrc commands
+
+```sh
+lua start_lsp_clangd({"--header-insertion=never"})
+lua start_lsp_pyright({})
+:set cc=120
+:IntentTabs(4)
+:IntentSpaces(4)
+```
