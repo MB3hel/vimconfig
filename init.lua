@@ -6,6 +6,9 @@ vim.cmd('source ' .. vim.fn.expand('<script>:hp') .. '/vimrc')
 -- vim.cmd('set notermguicolors')
 -- vim.cmd('highlight ColorColumn ctermbg=238')
 
+-- Darken background of default color scheme
+vim.cmd('hi normal guibg=NvimDarkGrey1')
+
 --------------------------------------------------------------------------------
 -- Diagnostics settings
 --------------------------------------------------------------------------------
