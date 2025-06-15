@@ -1,0 +1,2 @@
+lua start_lsp_pyright({})
+set cc=120
