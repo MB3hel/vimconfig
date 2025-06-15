@@ -20,21 +20,33 @@ project directory (`:source .lvimrc`)
 
 ## Installation
 
+Run install.py
+
 ```sh
-git clone git@github.com:MB3hel/vimconfig.git ~/.vimconfig
+cd ~
+git clone git@github.com:MB3hel/vimconfig.git .vimconfig
+cd ~/.vimconfig
 python3 install.py
 ```
 
 Running the install script will create symlinks to the correct files (requires admin or developer mode on windows).
 
-It will also run `PlugUpdate` in nvim to ensure plugins are installed and up to date.
+## Updates
 
+```sh
+cd ~/.vimconfig
+git pull
+python3 install.py
+```
 
 ## Example .lvimrc commands
 
 ```sh
+# Available in nvim only
 lua start_lsp_clangd({"--header-insertion=never"})
 lua start_lsp_pyright({})
+
+# Available in vim & nvim
 :set cc=120
 :IntentTabs(4)
 :IntentSpaces(4)
