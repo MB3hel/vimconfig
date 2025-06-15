@@ -63,7 +63,7 @@ os.symlink(os.path.join(script_dir, "init.lua"), os.path.join(nvim_dir, "init.lu
 # Using vim8+ & nvim package system instead of 3rd party plugin manager
 pkg_dir = os.path.join(nvim_dir, "pack", "nvim", "start")
 os.makedirs(pkg_dir)
-os.system(f"git clone https://github.com/neovim/nvim-lspconfig.git -b v1.8.0 {pkg_dir}/nvim-lspconfig")
+os.system(f"git clone https://github.com/neovim/nvim-lspconfig.git -b v2.3.0 {pkg_dir}/nvim-lspconfig")
 os.system(f"git clone https://github.com/hrsh7th/nvim-cmp.git -b v0.0.2 {pkg_dir}/nvim-cmp")
 os.system(f"git clone https://github.com/hrsh7th/cmp-nvim-lsp.git -b main {pkg_dir}/cmp-nvim-lsp")
 

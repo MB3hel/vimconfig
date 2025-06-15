@@ -1,2 +1,3 @@
 lua start_lsp_pyright({})
 set cc=120
+" :LspPyrightSetPythonPath /usr/bin/python3.12
