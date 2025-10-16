@@ -19,6 +19,9 @@ function IndentTabs(width)
     set noexpandtab                 " Use tabs not spaces
 endfunction
 
+command -nargs=1 IndentSpaces call IndentSpaces(<q-args>)
+command -nargs=1 IndentTabs call IndentTabs(<q-args>)
+
 " ------------------------------------------------------------------------------
 
 
@@ -26,34 +29,47 @@ endfunction
 " Configuration
 " ------------------------------------------------------------------------------
 
+" Any terminal I use supports this. If needed, can disable in vimrc_overrides
+set termguicolors                       " Use GUI colors not cterm
+if !has('nvim')
+    colorscheme desert                  " Vim default is unreadable
+endif
+highlight ColorColumn ctermbg=235       " Color for color column (cterm colors)
+highlight ColorColumn guibg=darkgrey    " Color for color column (gui colors)
+
 " Editing options
-set nowrap                          " Disable line wrap
-set number                          " Show line numbers
-set hidden                          " Allow unsaved buffers to be hidden
-set mouse=a                         " Enable mouse
-set clipboard=unnamedplus           " System clipboard
-                                    " On Linux requires xclip or wl-clipboard
-set whichwrap+=<,>,h,l,[,]          " Wrap between lines 
-set backspace=indent,eol,start      " Fixes backspace (mostly on windows)
-set cc=80                           " Default color column (right margin)
-highlight ColorColumn ctermbg=235   " Color for color column
+set nowrap                              " Disable line wrap
+set number                              " Show line numbers
+set hidden                              " Allow unsaved buffers to be hidden
+set mouse=a                             " Enable mouse
+set clipboard=unnamedplus               " System clipboard
+                                        " On Linux requires xclip or wl-clipboard
+set whichwrap+=<,>,h,l,[,]              " Wrap between lines 
+set backspace=indent,eol,start          " Fixes backspace (mostly on windows)
+set cc=80                               " Default color column (right margin)
+
+" Fix termguicolors with normal vim in tmux
+if !has('nvim') && ($TERM ==# 'screen' || $TERM ==# "screen-256color" || $TERM ==# "tmux" || $TERM ==# "tmux-256color")
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 " Indentation
-call IndentSpaces(4)                " Default to 4 space indentation
-set smartindent                     " Preserve indent
+call IndentSpaces(4)                    " Default to 4 space indentation
+set smartindent                         " Preserve indent
 
 " Tab completion
 " Only apply on vim (nvim has good defaults)
 if !has('nvim')
-    set wildignorecase              " Case insensitive 
-    set wildmode=list:longest,full  " Completion behavior
+    set wildignorecase                  " Case insensitive 
+    set wildmode=list:longest,full      " Completion behavior
 endif
 
 " Cursor settings
 " Nvim already switches cursor in insert mode
 if !has('nvim')
-    let &t_SI = "\e[5 q"            " Insert mode blinking line
-    let &t_EI = "\e[2 q"            " Normal mode solid block
+    let &t_SI = "\e[6 q"                " Insert mode blinking line
+    let &t_EI = "\e[2 q"                " Normal mode solid block
 endif
 
 " netrw settings
@@ -63,10 +79,23 @@ endif
 " vim. With banner disabled and tree style, this "spams" wl-copy
 " making everything unusable
 " let g:netrw_banner=0
-let g:netrw_liststyle=3             " Tree style
+let g:netrw_liststyle=3                 " Tree style
 
 " Custom keybinds
 nnoremap <leader>l :ls<CR>:b<space>
 
+" Custom & remapped commands
+command Lex Lexplore 20                " Lex will use width 20 by default
+
 " ------------------------------------------------------------------------------
+
+
+" -----------------------------------------------------------------------------
+" System specific vimrc overrides
+" -----------------------------------------------------------------------------
+
+let g:vimrc_dir = expand('<sfile>:p:h')
+execute "source " . g:vimrc_dir . "/vimrc_overrides"
+
+" -----------------------------------------------------------------------------
 

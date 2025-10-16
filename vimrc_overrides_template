@@ -1,0 +1,5 @@
+" This file is sourced at the END of vimrc
+" It can be used to override settings applied in vimrc for this machine only
+" This will be used by both vim and nvim just like the full vimrc file
+" Use if has('nvim') or if !has('nvim') for vim or nvim specific overrides
+
