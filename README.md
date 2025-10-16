@@ -49,6 +49,6 @@ lua start_lsp_pyright({})
 
 # Available in vim & nvim
 :set cc=120
-:IntentTabs(4)
-:IntentSpaces(4)
+:IntentTabs 4
+:IntentSpaces 4
 ```
