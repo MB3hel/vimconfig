@@ -38,8 +38,9 @@ if !has('nvim') && (stridx($TERM, 'screen')==0 || stridx($TERM, 'tmux')==0)
 endif
 
 " Color scheme settings
-set termguicolors                               " Use GUI colors not cterm
-if !has('nvim')
+set termguicolors                               " Use GUI colors always
+                                                " Disable in overrides if terminal doesn't support
+if !has('nvim')                                 " nvim default is sane. vim default is NOT!
     set t_Co=16                                 " Allow 16 ANSI colors always (only matters if 
                                                 " notermguicolors; vim in PuTTY defaults to 8)
     colorscheme desert                          " Vim default is unreadable
