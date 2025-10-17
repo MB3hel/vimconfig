@@ -40,10 +40,14 @@ endif
 " Color scheme settings
 set termguicolors                               " Use GUI colors not cterm
 if !has('nvim')
+    set t_Co=16                                 " Allow 16 ANSI colors always (only matters if 
+                                                " notermguicolors; vim in PuTTY defaults to 8)
     colorscheme desert                          " Vim default is unreadable
     hi NonText ctermbg=NONE guibg=NONE          " Color for unused lines (no different)
-    hi ColorColumn ctermbg=235 guibg=#4f5258    " Color for color column
+    hi ColorColumn ctermbg=8 guibg=#4f5258      " Color for color column
     hi ColorColumn ctermfg=NONE guifg=NONE      " Text in color column retains color
+    hi Visual ctermbg=8 guibg=#4f5258           " Selected text background color
+    hi Visual ctermfg=NONE guifg=NONE cterm=NONE   " Selected text other options 
 endif
 
 " Editing options
