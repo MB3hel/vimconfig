@@ -38,8 +38,10 @@ if !has('nvim') && (stridx($TERM, 'screen')==0 || stridx($TERM, 'tmux')==0)
 endif
 
 " Color scheme settings
-set termguicolors                               " Use GUI colors always
+if $TERM != 'linux'
+    set termguicolors                           " Use GUI colors always (unless we know term can't)
                                                 " Disable in overrides if terminal doesn't support
+endif
 if !has('nvim')                                 " nvim default is sane. vim default is NOT!
     set t_Co=16                                 " Allow 16 ANSI colors always (only matters if 
                                                 " notermguicolors; vim in PuTTY defaults to 8)
@@ -48,7 +50,15 @@ if !has('nvim')                                 " nvim default is sane. vim defa
     hi ColorColumn ctermbg=8 guibg=#4f5258      " Color for color column
     hi ColorColumn ctermfg=NONE guifg=NONE      " Text in color column retains color
     hi Visual ctermbg=8 guibg=#4f5258           " Selected text background color
-    hi Visual ctermfg=NONE guifg=NONE cterm=NONE   " Selected text other options 
+    hi Visual ctermfg=NONE guifg=NONE cterm=NONE
+
+    " For terminals known to only support 8 colors correct some vim settings
+    " nvim still doesn't need this since its default theme is sane
+    if $TERM == 'linux'
+        set t_Co=8                              " This terminal doesn't support 16 colors
+        hi ColorColumn ctermbg=7
+        hi Visual ctermbg=7
+    endif
 endif
 
 " Editing options
