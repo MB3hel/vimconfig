@@ -5,6 +5,7 @@ import shutil
 import platform
 import urllib.request
 import subprocess
+import stat
 
 
 def prompt_yn(msg: str, default: str = "") -> bool:
@@ -24,8 +25,21 @@ def prompt_yn(msg: str, default: str = "") -> bool:
         elif res == "" and default == "n":
             return False
 
+def rmtree_force(top):
+    if platform.system() == "Windows":
+        for root, dirs, files in os.walk(top, topdown=False):
+            for name in files:
+                filename = os.path.join(root, name)
+                os.chmod(filename, stat.S_IWRITE)
+                os.remove(filename)
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
+        os.rmdir(top)
+    else:
+        shutil.rmtree(top) 
 
-script_dir = os.path.dirname(__file__)
+
+script_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Platform specific locations for vim & nvim configs
 if platform.system() == "Windows":
@@ -45,9 +59,9 @@ if not prompt_yn("Continue?", "n"):
 
 # Remove current configs
 if os.path.exists(nvim_dir):
-    shutil.rmtree(nvim_dir)
+    rmtree_force(nvim_dir)
 if os.path.exists(vim_dir):
-    shutil.rmtree(vim_dir)
+    rmtree_force(vim_dir)
 
 # Create configs for vim
 os.makedirs(vim_dir)
