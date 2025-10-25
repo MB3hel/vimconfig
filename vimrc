@@ -29,6 +29,9 @@ command -nargs=1 IndentTabs call IndentTabs(<q-args>)
 " Configuration
 " --------------------------------------------------------------------------------------------------
 
+" Turn on syntax highlight BEFORE messing with colors
+syntax enable 
+
 " Fix termguicolors with normal vim in tmux
 " Terminal emulator still must support 24-bit color and tmux must be aware of that fact 
 " (in PuTTY this requires setting terminal to xterm-256color)
@@ -86,7 +89,7 @@ endif
 " Cursor settings
 " Nvim already switches cursor in insert mode
 if !has('nvim')
-    let &t_SI = "\e[6 q"                        " Insert mode blinking line
+    let &t_SI = "\e[5 q"                        " Insert mode blinking line
     let &t_EI = "\e[2 q"                        " Normal mode solid block
 endif
 
