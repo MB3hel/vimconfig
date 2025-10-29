@@ -40,6 +40,12 @@ git pull
 python3 install.py
 ```
 
+## Remote Install
+
+- Install locally first on a machine with internet access
+- Run `install.py --send username@remotehost` on the local machine
+- On the remote machine run `install.py --offline`
+
 ## Example .lvimrc commands
 
 ```sh
