@@ -102,11 +102,12 @@ endif
 " let g:netrw_banner=0
 let g:netrw_liststyle=3                         " Tree style
 
-" Custom keybinds
-nnoremap <leader>l :ls<CR>:b<space>
-
 " Custom & remapped commands
 command Lex Lexplore 20                         " Lex will use width 20 by default
+
+" Custom keybinds
+nnoremap <leader>l :ls<CR>:b<space>
+nnoremap <C-f> :Lex<CR>
 
 " --------------------------------------------------------------------------------------------------
 
