@@ -74,6 +74,7 @@ set clipboard=unnamedplus                       " System clipboard
 set whichwrap+=<,>,h,l,[,]                      " Wrap between lines 
 set backspace=indent,eol,start                  " Fixes backspace (mostly on windows)
 set cc=100                                      " Default color column (right margin)
+set showcmd                                     " Shows counts of selection in visual mode
 
 " Indentation
 call IndentSpaces(4)                            " Default to 4 space indentation
