@@ -82,7 +82,7 @@ def install(offline):
     # Create configs for vim
     os.makedirs(vim_dir)
     with open(os.path.join(vim_dir, "vimrc"), "w") as f:
-        f.write("\" **THIS FILE IS GENERATED. DO NOT MODIFY**")
+        f.write("\" **THIS FILE IS GENERATED. DO NOT MODIFY**\n")
         f.write("\" Load shared vimrc\n")
         f.write("execute \"source ~/.vimconfig/vimrc\"\n")
         f.write("\n")
@@ -95,7 +95,7 @@ def install(offline):
     # Create configs for nvim
     os.makedirs(nvim_dir)
     with open(os.path.join(nvim_dir, "init.lua"), "w") as f:
-        f.write("-- **THIS FILE IS GENERATED. DO NOT MODIFY**")
+        f.write("-- **THIS FILE IS GENERATED. DO NOT MODIFY**\n")
         f.write("-- Load shared init.lua\n")
         f.write("vim.cmd('source ' .. vim.fn.expand('~/.vimconfig/init.lua'))\n")
         f.write("\n")
