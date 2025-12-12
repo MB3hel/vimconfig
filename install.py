@@ -44,10 +44,14 @@ script_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Platform specific locations for vim & nvim configs
 if platform.system() == "Windows":
+    home_dir = os.environ["USERPROFILE"]
     vim_dir = os.path.join(os.environ["USERPROFILE"], "vimfiles")
+    vim_dir_tilde = "~/vimfiles"
     nvim_dir = os.path.join(os.environ["LOCALAPPDATA"], "nvim")
 else:
+    home_dir = os.environ["HOME"]
     vim_dir = os.path.join(os.environ["HOME"], ".vim")
+    vim_dir_tilde = "~/.vim"
     nvim_dir = os.path.join(os.environ["HOME"], ".config", "nvim")
 
 
@@ -68,21 +72,36 @@ def install(offline):
     if os.path.exists(vim_dir):
         rmtree_force(vim_dir)
 
+    # Create system specific vimrc overrides ONLY if it does not already exist
+    if not os.path.exists(os.path.join(home_dir, ".vimrc_overrides")):
+        with open(os.path.join(home_dir, ".vimrc_overrides"), "w") as f:
+            f.write("\" System specific overrides for vim & nvim go here\n")
+            f.write("\" Use if has('nvim') or if !has('nvim') if needed\n")
+            f.write("\n")
+
     # Create configs for vim
     os.makedirs(vim_dir)
-    os.symlink(os.path.join(script_dir, "vimrc"), os.path.join(vim_dir, "vimrc"))
-
-    # Create template machine specific vimrc
-    machine_vimrc = os.path.join(vim_dir, "vimrc_overrides")
-    if not os.path.exists(machine_vimrc):
-        shutil.copy(os.path.join(script_dir, "vimrc_overrides_template"), machine_vimrc)
+    with open(os.path.join(vim_dir, "vimrc"), "w") as f:
+        f.write("\" **THIS FILE IS GENERATED. DO NOT MODIFY**")
+        f.write("\" Load shared vimrc\n")
+        f.write("execute \"source ~/.vimconfig/vimrc\"\n")
+        f.write("\n")
+        f.write("\" System specific modifications\n")
+        f.write("execute \"source ~/.vimrc_overrides\"\n")
+        f.write("\n")
 
     print("Done vim.")
 
     # Create configs for nvim
     os.makedirs(nvim_dir)
-    os.symlink(os.path.join(script_dir, "vimrc"), os.path.join(nvim_dir, "vimrc"))
-    os.symlink(os.path.join(script_dir, "init.lua"), os.path.join(nvim_dir, "init.lua"))
+    with open(os.path.join(nvim_dir, "init.lua"), "w") as f:
+        f.write("-- **THIS FILE IS GENERATED. DO NOT MODIFY**")
+        f.write("-- Load shared init.lua\n")
+        f.write("vim.cmd('source ' .. vim.fn.expand('~/.vimconfig/init.lua'))\n")
+        f.write("\n")
+        f.write("-- Load vim's vimrc too so it applies to nvim and vim\n")
+        f.write(f"vim.cmd('source ' .. vim.fn.expand('{vim_dir_tilde}/vimrc'))\n")
+        f.write("\n")
 
     # Setup packages for nvim
     # Using vim8+ & nvim package system instead of 3rd party plugin manager
@@ -98,10 +117,6 @@ def install(offline):
         os.system(f"git clone https://github.com/neovim/nvim-lspconfig.git -b v2.3.0 {pkg_dir}/nvim-lspconfig")
         os.system(f"git clone https://github.com/hrsh7th/nvim-cmp.git -b v0.0.2 {pkg_dir}/nvim-cmp")
         os.system(f"git clone https://github.com/hrsh7th/cmp-nvim-lsp.git -b main {pkg_dir}/cmp-nvim-lsp")
-
-    # Symlink the machine specific vimrc so it will work for nvim as well, but
-    # is actually the same file as for vimrc
-    os.symlink(os.path.join(vim_dir, "vimrc_overrides"), os.path.join(nvim_dir, "vimrc_overrides"))
 
     print("Done nvim.")
 
@@ -119,7 +134,6 @@ def send(remote: str):
 
     # Don't just leave copied_pkgs sitting around
     rmtree_force(os.path.join(script_dir, "copied_pkgs"))
-
 
     print("You can now install.py --offline on the remote machine")
 

@@ -1,6 +1,3 @@
--- Load shared common (vim / nvim) config
-vim.cmd('source ' .. vim.fn.expand('<script>:hp') .. '/vimrc')
-
 -- Revert to default vim colorscheme instead of nvim 0.10+'s new default
 -- vim.cmd('colorscheme vim')
 -- vim.cmd('set notermguicolors')

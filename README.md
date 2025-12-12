@@ -9,7 +9,7 @@ Init files:
 
 - `vimrc` is loaded by vim and neovim
 - `init.lua` is loaded by neovim only (loads `vimrc`)
-- `~/.vim/vimrc_overrides` is a machine specific overrides file for both vim and nvim (often used for colorscheme changes per machine)
+- `~/.vimrc_overrides` is loaded by both and is persistent, but system specific
 
 Many functions are available that can be called from a `.lvimrc` file in a 
 project directory (`:source .lvimrc`)
