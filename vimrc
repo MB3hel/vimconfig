@@ -75,6 +75,7 @@ set whichwrap+=<,>,h,l,[,]                      " Wrap between lines
 set backspace=indent,eol,start                  " Fixes backspace (mostly on windows)
 set cc=100                                      " Default color column (right margin)
 set showcmd                                     " Shows counts of selection in visual mode
+set laststatus=2                                " Always show status line
 
 " Indentation
 call IndentSpaces(4)                            " Default to 4 space indentation
