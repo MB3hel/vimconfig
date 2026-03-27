@@ -53,16 +53,9 @@ hi ColorColumn ctermbg=8 guibg=#4f5258          " Color for color column
 hi ColorColumn ctermfg=NONE guifg=NONE          " Text in color column retains color
 hi Visual ctermbg=8 guibg=#4f5258               " Selected text background color
 hi Visual ctermfg=NONE guifg=NONE cterm=NONE    " Selected text retains color
-hi StatusLine term=bold,reverse                 " Match vim defaults (not nvim)
-hi StatusLine ctermfg=236 ctermbg=144           " Default colors (older versions don't match)
-hi StatusLine guifg=#333333 guibg=#c2bfa5       " Default colors (older versions don't match)
 if $TERM == 'linux'
     hi ColorColumn ctermbg=7                    " Alternate color for terminals w/ only 8 colors 
     hi Visual ctermbg=7                         " Alternate color for terminals w/ only 8 colors
-    hi StatusLine ctermfg=7 ctermbg=0           " Alternate color for terminals w/ only 8 colors
-    hi Statement ctermfg=3                      " Alternate color for termainls w/ only 8 colors
-    hi LineNr ctermfg=3                         " Alternate color for terminals w/ only 8 colors
-    hi Type ctermfg=3 cterm=bold                " ALternate color for terminals w/ only 8 colors
 endif
 
 " Editing options
