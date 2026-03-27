@@ -41,21 +41,27 @@ if !has('nvim') && (stridx($TERM, 'screen')==0 || stridx($TERM, 'tmux')==0)
 endif
 
 " Color scheme settings
-set t_Co=16                                     " Allow 16 ANSI colors (if notermguicolors)
-set termguicolors                               " Use GUI colors always (unless we know term can't)
-if $TERM == 'linux'
-    set notermguicolors                         " This terminal doesn't support GUI colors 
-    set t_Co=8                                  " This terminal doesn't support 16 colors
+if $TERM != 'linux'
+    set termguicolors                           " Use GUI colors always (unless we know term can't)
+                                                " Disable in overrides if terminal doesn't support
 endif
-colorscheme desert                              " Vim default is unreadable in many terminals
-hi NonText ctermbg=NONE guibg=NONE              " Color for unused lines (no different)
-hi ColorColumn ctermbg=8 guibg=#4f5258          " Color for color column
-hi ColorColumn ctermfg=NONE guifg=NONE          " Text in color column retains color
-hi Visual ctermbg=8 guibg=#4f5258               " Selected text background color
-hi Visual ctermfg=NONE guifg=NONE cterm=NONE    " Selected text retains color
-if $TERM == 'linux'
-    hi ColorColumn ctermbg=7                    " Alternate color for terminals w/ only 8 colors 
-    hi Visual ctermbg=7                         " Alternate color for terminals w/ only 8 colors
+if !has('nvim')                                 " nvim default is sane. vim default is NOT!
+    set t_Co=16                                 " Allow 16 ANSI colors always (only matters if 
+                                                " notermguicolors; vim in PuTTY defaults to 8)
+    colorscheme desert                          " Vim default is unreadable
+    hi NonText ctermbg=NONE guibg=NONE          " Color for unused lines (no different)
+    hi ColorColumn ctermbg=8 guibg=#4f5258      " Color for color column
+    hi ColorColumn ctermfg=NONE guifg=NONE      " Text in color column retains color
+    hi Visual ctermbg=8 guibg=#4f5258           " Selected text background color
+    hi Visual ctermfg=NONE guifg=NONE cterm=NONE
+
+    " For terminals known to only support 8 colors correct some vim settings
+    " nvim still doesn't need this since its default theme is sane
+    if $TERM == 'linux'
+        set t_Co=8                              " This terminal doesn't support 16 colors
+        hi ColorColumn ctermbg=7
+        hi Visual ctermbg=7
+    endif
 endif
 
 " Editing options
@@ -87,11 +93,19 @@ if !has('nvim')
 endif
 
 " Cursor settings
-let &t_SI = "\e[5 q"                            " Insert mode blinking line
-let &t_EI = "\e[2 q"                            " Normal mode solid block
+" Nvim already switches cursor in insert mode
+if !has('nvim')
+    let &t_SI = "\e[5 q"                        " Insert mode blinking line
+    let &t_EI = "\e[2 q"                        " Normal mode solid block
+endif
 
 " netrw settings
-" let g:netrw_banner=0                          " https://github.com/neovim/neovim/issues/23650
+" Note: Do not disable banner because of nvim bug with wl-copy
+" https://github.com/neovim/neovim/issues/23650
+" On gnome, wl-copy also opens a GUI window, momentarily taking focus from
+" vim. With banner disabled and tree style, this "spams" wl-copy
+" making everything unusable
+" let g:netrw_banner=0
 let g:netrw_liststyle=3                         " Tree style
 
 " Custom & remapped commands
