@@ -1,10 +1,5 @@
--- Revert to default vim colorscheme instead of nvim 0.10+'s new default
--- vim.cmd('colorscheme vim')
--- vim.cmd('set notermguicolors')
--- vim.cmd('highlight ColorColumn ctermbg=238')
-
 -- Darken background of default color scheme
-vim.cmd('hi normal guibg=NvimDarkGrey1')
+-- vim.cmd('hi normal guibg=NvimDarkGrey1')
 
 --------------------------------------------------------------------------------
 -- Diagnostics settings
