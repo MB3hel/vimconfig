@@ -19,8 +19,18 @@ function IndentTabs(width)
     set noexpandtab                             " Use tabs not spaces
 endfunction
 
+" Disable vim replacing the terminal's default bg. Allows transparency to
+" still work in vim
+function DefaultBg()
+    hi Normal guibg=NONE ctermbg=NONE
+endfunction
+
 command -nargs=1 IndentSpaces call IndentSpaces(<q-args>)
 command -nargs=1 IndentTabs call IndentTabs(<q-args>)
+
+" Add to vimrc_overrides when terminal uses transparent bg or if you want to
+" use default terminal bg color instead of having vim replace
+command UseDefaultBg hi Normal guibg=NONE ctermbg=NONE
 
 " --------------------------------------------------------------------------------------------------
 
