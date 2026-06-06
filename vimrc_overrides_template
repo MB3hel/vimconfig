@@ -3,3 +3,6 @@
 " This will be used by both vim and nvim just like the full vimrc file
 " Use if has('nvim') or if !has('nvim') for vim or nvim specific overrides
 
+" Disable vim/nvim theme background and use default setting for terminal
+" This is necessary to allow transparent terminal bg to work in vim/nvim
+UseDefaultBg
