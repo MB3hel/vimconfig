@@ -113,4 +113,9 @@ function start_lsp_clangd(extra_args)
     })
     vim.lsp.enable('clangd')
 end
+
+-- Aliases for the start functions because I always try to tap complete lsp_
+-- instead of start_
+lsp_clangd_start = start_lsp_clangd
+lsp_pyright_start = start_lsp_pyright
 --------------------------------------------------------------------------------
