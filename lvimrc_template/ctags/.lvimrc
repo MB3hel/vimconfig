@@ -2,7 +2,9 @@
 " ./ should refer to the file's directory not vim's cwd in a tags setting
 set tags=./tags;,tags;
 
-
 " Command to generate tags file
 command CtagsRun execute 'silent !ctags -R --exclude=.git --exclude=venv --exclude=env --exclude=.venv --exclude=.env -R ' . shellescape(substitute(fnamemodify(getcwd(), ':p:h'), '\\', '/', 'g')) | redraw!
+
+" Command to show tags files
+command CtagsShow execute 'echo tagfiles()'
 
