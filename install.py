@@ -43,7 +43,8 @@ def rmtree_force(top):
 script_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Platform specific locations for vim & nvim configs
-if platform.system() == "Windows":
+# Use linux style paths in isolated msys2 environments (where python itself comes from msys2)
+if platform.system() == "Windows" and sys.platform != 'cygwin':
     home_dir = os.environ["USERPROFILE"]
     vim_dir = os.path.join(os.environ["USERPROFILE"], "vimfiles")
     vim_dir_tilde = "~/vimfiles"
@@ -120,6 +121,13 @@ def install(offline):
 
     print("Done nvim.")
 
+
+    # On windows, symlink into msys2 installed by scoop for isolated instances
+    if platform.system() == "Windows":
+        os.environ['MSYS'] = 'winsymlinks:nativestrict'
+        os.makedirs(f"{os.environ['HOME']}/scoop/persist/msys2/home/{os.environ['USER']}", exist_ok=True)
+        if not os.path.exists(f"{os.environ['HOME']}/scoop/persist/msys2/home/{os.environ['USER']}/.vimconfig"):
+            os.symlink(f"{os.environ['HOME']}/.vimconfig", f"{os.environ['HOME']}/scoop/persist/msys2/home/{os.environ['USER']}/.vimconfig")
 
 def send(remote: str):
     global script_dir, vim_dir, nvim_dir, nvim_plugins
