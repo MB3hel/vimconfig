@@ -112,4 +112,13 @@ if vim.fn.executable('rust-analyzer') == 1 then
     })
     vim.lsp.enable('rust_analyzer')
 end
+
+-- Helper command to toggle inlay type hints
+vim.api.nvim_create_user_command(
+    "LspInlayHintToggle",
+    function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+    end,
+    { desc = "Toggles language server inlay hints" }
+)
 --------------------------------------------------------------------------------
