@@ -128,7 +128,7 @@ nnoremap <leader>l :ls<CR>:b<space>
 nnoremap <C-f> :Lex<CR>
 
 " Fix windows terminal being broken when exiting vim/nvim sometimes
-autocmd VimLeave * set guicursor= | call chansend(v:stderr, "\x1b[ q")
+autocmd VimLeave * :redraw!
 
 " --------------------------------------------------------------------------------------------------
 
