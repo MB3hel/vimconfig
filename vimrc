@@ -92,6 +92,7 @@ set timeout                                     " Enable timeout (match nvim def
 set timeoutlen=1000                             " Match nvim default timeoutlen
 set ttimeout                                    " Enable ttimeout (match nvim defaults)
 set ttimeoutlen=50                              " Match nvim default ttimeoutlen
+set belloff=all                                 " No terminal bell
 
 " Indentation
 call IndentSpaces(4)                            " Default to 4 space indentation
@@ -103,6 +104,10 @@ if !has('nvim')
     set wildignorecase                          " Case insensitive 
     set wildmode=list:longest,full              " Completion behavior
 endif
+
+" Look for ctags in the file's current directory and up
+" ./ should refer to the file's directory not vim's cwd in a tags setting
+set tags=./tags;,tags;
 
 " Cursor settings
 " Nvim already switches cursor in insert mode
@@ -122,6 +127,8 @@ let g:netrw_liststyle=3                         " Tree style
 
 " Custom & remapped commands
 command Lex Lexplore 20                         " Lex will use width 20 by default
+command CtagsRun execute 'silent !ctags -R --exclude=.git --exclude=venv --exclude=env --exclude=.venv --exclude=.env -R ' . shellescape(substitute(fnamemodify(getcwd(), ':p:h'), '\\', '/', 'g')) | redraw!
+command CtagsShow execute 'echo tagfiles()'
 
 " Custom keybinds
 nnoremap <leader>l :ls<CR>:b<space>

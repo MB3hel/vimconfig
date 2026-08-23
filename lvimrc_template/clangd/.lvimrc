@@ -1,2 +1,0 @@
-lua start_lsp_clangd({"--header-insertion=never"})
-:set cc=120

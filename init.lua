@@ -67,60 +67,49 @@ cmp.setup({
     }
 })
 
+-- Enable autocomplete
+require('cmp').setup { 
+    completion = {
+        autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }
+    }
+}
+
 -- Limit menu height
 -- vim.opt.pumheight=30
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- Functions for use in .lvimrc files
+-- Setup of language servers and autocomplete
 --------------------------------------------------------------------------------
-function disable_autocomplete()
-    require('cmp').setup { 
-        completion = {
-            autocomplete = false
-        }
-    }
-end
-
-function enable_autocomplete()
-    require('cmp').setup { 
-        completion = {
-            autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }
-        }
-    }
-end
-
-function start_lsp_pyright(extra_args)
+-- pyright (python)
+if vim.fn.executable('pyright') == 1 then
     vim.lsp.config('pyright', {
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        cmd = { 'pyright-langserver', '--stdio', unpack(extra_args) }
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
     })
     vim.lsp.enable('pyright')
 end
 
-function start_lsp_clangd(extra_args)
+
+-- clangd (c, c++)
+if vim.fn.executable('clangd') == 1 then
     vim.lsp.config('clangd', {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        cmd = { 'clangd', unpack(extra_args) }
+        cmd = { 'clangd', '--header-insertion=never' }
     })
     vim.lsp.enable('clangd')
 end
 
-function start_lsp_rust_analyzer(extra_args)
+
+-- rust-analyzer (rust)
+if vim.fn.executable('rust-analyzer') == 1 then
     vim.lsp.config('rust_analyzer', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
         settings = {
             ['rust-analyzer'] = {
                 diagnostics = { enable = true },
             }
         },
-        cmd = { 'rust-analyzer', unpack(extra_args) }
     })
     vim.lsp.enable('rust_analyzer')
 end
-
--- Aliases for the start functions because I always try to tap complete lsp_
--- instead of start_
-lsp_clangd_start = start_lsp_clangd
-lsp_pyright_start = start_lsp_pyright
-lsp_rust_analyzer_start = start_lsp_rust_analyzer
 --------------------------------------------------------------------------------

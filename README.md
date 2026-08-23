@@ -49,11 +49,6 @@ python3 install.py
 ## Example .lvimrc commands
 
 ```sh
-# Available in nvim only
-lua start_lsp_clangd({"--header-insertion=never"})
-lua start_lsp_pyright({})
-
-# Available in vim & nvim
 :set cc=120
 :IntentTabs 4
 :IntentSpaces 4
