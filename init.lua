@@ -106,8 +106,21 @@ function start_lsp_clangd(extra_args)
     vim.lsp.enable('clangd')
 end
 
+function start_lsp_rust_analyzer(extra_args)
+    vim.lsp.config('rust_analyzer', {
+        settings = {
+            ['rust-analyzer'] = {
+                diagnostics = { enable = true },
+            }
+        },
+        cmd = { 'rust-analyzer', unpack(extra_args) }
+    })
+    vim.lsp.enable('rust_analyzer')
+end
+
 -- Aliases for the start functions because I always try to tap complete lsp_
 -- instead of start_
 lsp_clangd_start = start_lsp_clangd
 lsp_pyright_start = start_lsp_pyright
+lsp_rust_analyzer_start = start_lsp_rust_analyzer
 --------------------------------------------------------------------------------
