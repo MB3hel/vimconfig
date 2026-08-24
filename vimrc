@@ -67,6 +67,11 @@ hi StatusLine term=bold,reverse                 " Default colors (older versions
 hi StatusLine ctermfg=236 ctermbg=144           " Default colors (older versions don't match)
 hi StatusLine guifg=#333333 guibg=#c2bfa5       " Default colors (older versions don't match)
 
+" nvim specific color scheme tweaks
+if has('nvim')
+    hi LspInlayHint ctermfg=66 guifg=#6d8787 gui=italic cterm=italic
+endif
+
 " For terminals known to only support 8 colors correct some vim settings
 " nvim still doesn't need this since its default theme is sane
 if $TERM == 'linux'

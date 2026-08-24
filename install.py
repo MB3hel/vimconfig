@@ -7,6 +7,7 @@ import urllib.request
 import subprocess
 import stat
 import argparse
+import sys
 
 
 def prompt_yn(msg: str, default: str = "") -> bool:
