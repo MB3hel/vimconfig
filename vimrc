@@ -88,7 +88,7 @@ set hidden                                      " Allow unsaved buffers to be hi
 set mouse=a                                     " Enable mouse
 set clipboard=unnamedplus                       " System clipboard
                                                 " On Linux requires xclip or wl-clipboard
-set whichwrap+=<,>,h,l,[,]                      " Wrap between lines 
+set whichwrap+=<,>,h,l,[,]                      " Wrap between lines
 set backspace=indent,eol,start                  " Fixes backspace (mostly on windows)
 set cc=100                                      " Default color column (right margin)
 set showcmd                                     " Shows counts of selection in visual mode
@@ -98,6 +98,26 @@ set timeoutlen=1000                             " Match nvim default timeoutlen
 set ttimeout                                    " Enable ttimeout (match nvim defaults)
 set ttimeoutlen=50                              " Match nvim default ttimeoutlen
 set belloff=all                                 " No terminal bell
+set virtualedit=onemore                         " Allow cursor to right of last char in normal mode
+
+" Don't move cursor left one leaving insert mode
+:inoremap <silent> <Esc> <Esc>`^
+
+" When wrapping up a line with left arrow, keep cursor at end (the 'onemore' position)
+nnoremap <silent> <Left> :call WrapLeftOneMore()<CR>
+function! WrapLeftOneMore()
+    " Check if cursor is at the first column of the line
+    if col('.') == 1 && line('.') > 1
+        " Move up one line and position cursor one past the last character
+        normal! k$
+        if col('.') < col('$')
+            normal! l
+        endif
+    else
+        " Otherwise, perform standard left arrow movement
+        execute "normal! \<Left>"
+    endif
+endfunction
 
 " Indentation
 call IndentSpaces(4)                            " Default to 4 space indentation
@@ -115,10 +135,14 @@ endif
 set tags=./tags;,tags;
 
 " Cursor settings
-" Nvim already switches cursor in insert mode
-if !has('nvim')
-    let &t_SI = "\e[5 q"                        " Insert mode blinking line
-    let &t_EI = "\e[2 q"                        " Normal mode solid block
+if has("nvim")
+    " nvim uses guicorsor not escapes to the terminal
+    set guicursor=n-v-c-sm:ver25,i-ci-ve-r-cr-o:ver25-blinkon500-blinkoff500,t:ver25-blinkon500-blinkoff500-TermCursor
+else
+    " vim uses escapes to the terminal
+    let &t_SI = "\e[5 q"                            " Insert mode blinking line
+    let &t_EI = "\e[6 q"                            " Normal mode solid line
+    let &t_te ..= "\e[5 q"                          " Blinking line when exiting vim
 endif
 
 " netrw settings
