@@ -1,0 +1,8 @@
+{
+    "editor.cursorBlinking": "solid",
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.useSystemClipboard": true,
+    "vim.incsearch": true,
+    "vim.whichwrap": "<,>,h,l,[,]"
+}
