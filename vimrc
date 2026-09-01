@@ -137,12 +137,12 @@ set tags=./tags;,tags;
 " Cursor settings
 if has("nvim")
     " nvim uses guicorsor not escapes to the terminal
-    set guicursor=n-v-c-sm:ver25,i-ci-ve-r-cr-o:ver25-blinkon500-blinkoff500,t:ver25-blinkon500-blinkoff500-TermCursor
+    set guicursor=n-v-c-sm:block,i-ci-ve-r-cr-o:ver25-blinkon500-blinkoff500,t:block-blinkon500-blinkoff500-TermCursor
 else
     " vim uses escapes to the terminal
     let &t_SI = "\e[5 q"                            " Insert mode blinking line
-    let &t_EI = "\e[6 q"                            " Normal mode solid line
-    let &t_te ..= "\e[5 q"                          " Blinking line when exiting vim
+    let &t_EI = "\e[2 q"                            " Normal mode solid block
+    let &t_te ..= "\e[1 q"                          " Blinking block when exiting vim
 endif
 
 " netrw settings
