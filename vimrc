@@ -98,26 +98,6 @@ set timeoutlen=1000                             " Match nvim default timeoutlen
 set ttimeout                                    " Enable ttimeout (match nvim defaults)
 set ttimeoutlen=50                              " Match nvim default ttimeoutlen
 set belloff=all                                 " No terminal bell
-set virtualedit=onemore                         " Allow cursor to right of last char in normal mode
-
-" Don't move cursor left one leaving insert mode
-:inoremap <silent> <Esc> <Esc>`^
-
-" When wrapping up a line with left arrow, keep cursor at end (the 'onemore' position)
-nnoremap <silent> <Left> :call WrapLeftOneMore()<CR>
-function! WrapLeftOneMore()
-    " Check if cursor is at the first column of the line
-    if col('.') == 1 && line('.') > 1
-        " Move up one line and position cursor one past the last character
-        normal! k$
-        if col('.') < col('$')
-            normal! l
-        endif
-    else
-        " Otherwise, perform standard left arrow movement
-        execute "normal! \<Left>"
-    endif
-endfunction
 
 " Indentation
 call IndentSpaces(4)                            " Default to 4 space indentation
