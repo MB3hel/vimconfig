@@ -123,6 +123,7 @@ else
     let &t_SI = "\e[6 q"                            " Insert mode solid line
     let &t_EI = "\e[2 q"                            " Normal mode solid block
     let &t_te ..= "\e[0 q"                          " Restore to terminal's default cursor on exit
+    let &t_ti ..= "\e[2 q"                          " Same as normal mode on vim start
 endif
 
 " netrw settings
