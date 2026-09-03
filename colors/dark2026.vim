@@ -1,5 +1,4 @@
-" Port of https://github.com/D0nw0r/dark2026.nvim/tree/master
-" for vim and neovim in vimscript
+" Adapted from  https://github.com/D0nw0r/dark2026.nvim/tree/master
 " Original work in lua: MIT License
 "     
 "     Copyright (c) 2026 D0nw0r
@@ -21,6 +20,49 @@
 "     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 "     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 "     SOFTWARE.
+"
+
+
+" --------------------------------------------------------------------------------------------------
+" Helper functions (eventually split these out into reuse script)
+" --------------------------------------------------------------------------------------------------
+
+" No color
+let s:nocolor = { 'guicolor': 'NONE', 'term256color': 'NONE', 'term16color': 'NONE' }
+
+" Style options
+let s:normal        = 'gui=NONE           cterm=NONE'
+let s:bold          = 'gui=bold           cterm=bold'
+let s:italic        = 'gui=italic         cterm=italic'
+let s:underline     = 'gui=underline      cterm=underline'
+let s:undercurl     = 'gui=undercurl      cterm=underline'
+let s:strikethrough = 'gui=strikethrough  cterm=strikethrough'
+let s:boldunderline = 'gui=bold,underline cterm=bold,underline'
+
+
+" Helper function to set highlights fully (have to explicitly set everything we don't want to NONE
+" otherwise some vim startup defaults will still apply - hi clear doesn't clear them)
+function! s:sethl(group, fg, bg, sp, style)
+    " Collect foreground colors
+    let l:guifg = get(a:fg, 'guicolor', 'NONE')
+    if &t_Co >= 256
+        let l:ctermfg = get(a:fg, 'term256color', 'NONE')
+    else
+        let l:ctermfg = get(a:fg, 'term16color', 'NONE')
+    endif
+
+    " Collect background colors
+    let l:guibg = get(a:bg, 'guicolor', '#C0C0C0')
+    if &t_Co >= 256
+        let l:ctermbg = get(a:bg, 'term256color', 'NONE')
+    else
+        let l:ctermbg = get(a:bg, 'term16color', 'NONE')
+    endif
+
+    execute 'hi! ' . a:group . ' guifg=' . l:guifg . ' ctermfg=' . l:ctermfg . ' guibg=' . l:guibg . ' ctermbg=' . l:ctermbg . ' ' . a:style
+endfunction
+
+" --------------------------------------------------------------------------------------------------\
 
 
 
@@ -103,10 +145,6 @@ set background=dark
 let g:colors_name = "dark2026"
 
 
-" Helper library for sethl and some constants
-source <script>:h/helper.vim
-
-
 " Editor / UI
 "            Group                  Foreground      Background      Special Color       Style
 call s:sethl('Normal',              s:fg,           s:bg,           s:nocolor,          s:normal)
@@ -125,7 +163,7 @@ call s:sethl('CursorLine',          s:nocolor,      s:bg_line,      s:nocolor,  
 call s:sethl('CursorColumn',        s:nocolor,      s:bg_line,      s:nocolor,          s:normal)
 call s:sethl('ColorColumn',         s:nocolor,      s:bg_line,      s:nocolor,          s:normal)
 
-call s:sethl('LineNr',              S:fg_muted,     s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('LineNr',              s:fg_muted,     s:nocolor,      s:nocolor,          s:normal)
 call s:sethl('CursorLineNr',        s:fg_alt,       s:nocolor,      s:nocolor,          s:bold)
 call s:sethl('SignColumn',          s:nocolor,      s:bg,           s:nocolor,          s:normal)
 call s:sethl('FoldColumn',          s:fg_muted,     s:bg,           s:nocolor,          s:normal)
