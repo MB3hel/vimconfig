@@ -216,130 +216,138 @@ call s:sethl('Underlined',          s:nocolor,      s:nocolor,      s:nocolor,  
 call s:sethl('Error',               s:err,          s:nocolor,      s:nocolor,          s:normal)
 call s:sethl('Todo',                s:warn,         s:nocolor,      s:nocolor,          s:bold)
 
+
 if has('nvim')
     " Treesitter
-    execute 'hi!  link @comment Comment'
-    execute 'hi!  @comment.documentation       guifg=' . s:comment
-    execute 'hi!  link @comment.todo Todo'
-    execute 'hi!  @comment.error               guifg=' . s:err . ' gui=bold cterm=bold'
-    execute 'hi!  @comment.warning             guifg=' . s:warn . ' gui=bold cterm=bold'
-    execute 'hi!  @comment.note                guifg=' . s:info . ' gui=bold cterm=bold'
+    "            Group                          Foreground      Background      Special Color       Style
+    call s:sethl('@comment.documentation',      s:comment,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@comment.error',              s:err,          s:nocolor,      s:nocolor,          s:bold) 
+    call s:sethl('@comment.warning',            s:warn,         s:nocolor,      s:nocolor,          s:bold) 
+    call s:sethl('@comment.note',               s:info,         s:nocolor,      s:nocolor,          s:bold) 
+    hi! link @comment.todo  Todo
+    hi! link @comment       Comment
 
-    execute 'hi!  link @string String'
-    execute 'hi!  @string.escape               guifg=' . s:keyword
-    execute 'hi!  @string.regexp               guifg=' . s:regex
-    execute 'hi!  @string.special              guifg=' . s:annotation
-    execute 'hi!  link @character Character'
-    execute 'hi!  link @number  Number'
-    execute 'hi!  link @boolean Boolean'
-    execute 'hi!  link @float   Float'
+    call s:sethl('@string.escape',              s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@string.regex',               s:regex,        s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@string.special',             s:annotation,   s:nocolor,      s:nocolor,          s:normal)
+    hi! link @string        String
+    hi! link @character     Character
+    hi! link @number        Number
+    hi! link @boolean       Boolean
+    hi! link @float         Float
 
-    execute 'hi!  @constant                    guifg=' . s:constant
-    execute 'hi!  @constant.builtin            guifg=' . s:constant
-    execute 'hi!  @constant.macro              guifg=' . s:preproc
+    call s:sethl('@constant',                   s:constant,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@constant.builtin',           s:constant,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@constant.macro',             s:preproc,      s:nocolor,      s:nocolor,          s:normal)
 
-    execute 'hi!  @variable                    guifg=' . s:variable
-    execute 'hi!  @variable.builtin            guifg=' . s:keyword . ' gui=italic cterm=italic'
-    execute 'hi!  @variable.parameter          guifg=' . s:param
-    execute 'hi!  @variable.member             guifg=' . s:member
+    call s:sethl('@variable',                   s:variable,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@variable.builtin',           s:keyword,      s:nocolor,      s:nocolor,          s:italic)
+    call s:sethl('@variable.parameter',         s:param,        s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@variable.member',            s:member,       s:nocolor,      s:nocolor,          s:normal)
 
-    execute 'hi!  @property                    guifg=' . s:member
-    execute 'hi!  @field                       guifg=' . s:member
+    call s:sethl('@property',                   s:member,       s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@field',                      s:member,       s:nocolor,      s:nocolor,          s:normal)
 
-    execute 'hi!  @function                    guifg=' . s:func
-    execute 'hi!  @function.builtin            guifg=' . s:func
-    execute 'hi!  @function.call               guifg=' . s:func
-    execute 'hi!  @function.macro              guifg=' . s:macro
-    execute 'hi!  @function.method             guifg=' . s:func
-    execute 'hi!  @function.method.call        guifg=' . s:func
-    execute 'hi!  @constructor                 guifg=' . s:type
+    call s:sethl('@function',                   s:func,         s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@function.builtin',           s:func,         s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@function.call',              s:func,         s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@function.macro',             s:macro,        s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@function.method',            s:func,         s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@function.method.call',       s:func,         s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@constructor',                s:type,         s:nocolor,      s:nocolor,          s:normal)
 
-    execute 'hi!  link @keyword Keyword'
-    execute 'hi!  @keyword.function            guifg=' . s:keyword
-    execute 'hi!  @keyword.return              guifg=' . s:preproc
-    execute 'hi!  @keyword.conditional         guifg=' . s:preproc
-    execute 'hi!  @keyword.repeat              guifg=' . s:preproc
-    execute 'hi!  @keyword.import              guifg=' . s:preproc
-    execute 'hi!  @keyword.exception           guifg=' . s:preproc
-    execute 'hi!  @keyword.operator            guifg=' . s:keyword
+    call s:sethl('@keyword.function',           s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@keyword.return',             s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@keyword.conditional',        s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@keyword.repeat',             s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@keyword.import',             s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@keyword.exception',          s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@keyword.operator',           s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+    hi! link @keyword       Keyword
+    
+    hi! link @operator      Operator
+    
+    call s:sethl('@type.builtin',               s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@type.definition',            s:type,         s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@type.qualifier',             s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+    hi! link @type Type
 
-    execute 'hi!  link @operator Operator'
+    call s:sethl('@attribute',                  s:annotation,   s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@module',                     s:module,       s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@namespace',                  s:module,       s:nocolor,      s:nocolor,          s:normal)
 
-    execute 'hi!  link @type Type'
-    execute 'hi!  @type.builtin                guifg=' . s:keyword
-    execute 'hi!  @type.definition             guifg=' . s:type
-    execute 'hi!  @type.qualifier              guifg=' . s:keyword
+    call s:sethl('@punctuation',                s:fg,           s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@punctuation.bracket',        s:fg,           s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@punctuation.delimiter',      s:fg,           s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@punctuation.special',        s:keyword,      s:nocolor,      s:nocolor,          s:normal)
 
-    execute 'hi!  @attribute                   guifg=' . s:annotation
-    execute 'hi!  @module                      guifg=' . s:module
-    execute 'hi!  @namespace                   guifg=' . s:module
+    call s:sethl('@tag',                        s:tag,          s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@tag.builtin',                s:tag,          s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@tag.attribute',              s:attr,         s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@tag.delimiter',              s:fg_dim,       s:nocolor,      s:nocolor,          s:normal)
 
-    execute 'hi!  @punctuation                 guifg=' . s:fg
-    execute 'hi!  @punctuation.bracket         guifg=' . s:fg
-    execute 'hi!  @punctuation.delimiter       guifg=' . s:fg
-    execute 'hi!  @punctuation.special         guifg=' . s:keyword
-
-    execute 'hi!  @tag                         guifg=' . s:tag
-    execute 'hi!  @tag.builtin                 guifg=' . s:tag
-    execute 'hi!  @tag.attribute               guifg=' . s:attr
-    execute 'hi!  @tag.delimiter               guifg=' . s:fg_dim
-
-    execute 'hi!  @markup.heading              guifg=' . s:keyword . ' gui=bold cterm=bold'
-    execute 'hi!  @markup.strong               guifg=' . s:fg . ' gui=bold cterm=bold'
-    execute 'hi!  @markup.italic               guifg=' . s:preproc . ' gui=italic cterm=italic'
-    execute 'hi!  @markup.underline          cterm=underline gui=underline'
-    execute 'hi!  @markup.strikethrough      gui=strikethrough gui=strikethrough'
-    execute 'hi!  @markup.link                 guifg=' . s:accent_alt . ' gui=underline cterm=underline'
-    execute 'hi!  @markup.link.label           guifg=' . s:string
-    execute 'hi!  @markup.link.url             guifg=' . s:accent_alt . ' gui=underline cterm=underline'
-    execute 'hi!  @markup.list                 guifg=' . s:keyword
-    execute 'hi!  @markup.quote                guifg=' . s:comment
-    execute 'hi!  @markup.raw                  guifg=' . s:string
-    execute 'hi!  @markup.raw.block            guifg=' . s:fg . ' guibg=' . s:bg_line
+    call s:sethl('@markup.heading',             s:keyword,      s:nocolor,      s:nocolor,          s:bold)
+    call s:sethl('@markup.strong',              s:fg,           s:nocolor,      s:nocolor,          s:bold)
+    call s:sethl('@markup.italic',              s:preproc,      s:nocolor,      s:nocolor,          s:italic)
+    call s:sethl('@markup.underline',           s:nocolor,      s:nocolor,      s:nocolor,          s:underline)
+    call s:sethl('@markup.strikethrough',       s:nocolor,      s:nocolor,      s:nocolor,          s:strikethrough)
+    call s:sethl('@markup.link',                s:accent_alt,   s:nocolor,      s:nocolor,          s:underline)
+    call s:sethl('@markup.link.label',          s:string,       s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@markup.link.url',            s:accent_alt,   s:nocolor,      s:nocolor,          s:underline)
+    call s:sethl('@markup.list',                s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@markup.quote',               s:comment,      s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@markup.raw',                 s:string,       s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@markup.raw.block',           s:fg,           s:bg_line,      s:nocolor,          s:normal)
 
     " LSP semantic tokens
-    execute 'hi!  link @lsp.type.class     @type'
-    execute 'hi!  link @lsp.type.enum      @type'
-    execute 'hi!  link @lsp.type.interface @type'
-    execute 'hi!  link @lsp.type.struct    @type'
-    execute 'hi!  link @lsp.type.type      @type'
-    execute 'hi!  link @lsp.type.parameter @variable.parameter'
-    execute 'hi!  link @lsp.type.variable  @variable'
-    execute 'hi!  link @lsp.type.property  @property'
-    execute 'hi!  link @lsp.type.function  @function'
-    execute 'hi!  link @lsp.type.method    @function.method'
-    execute 'hi!  link @lsp.type.macro     @function.macro'
-    execute 'hi!  link @lsp.type.namespace @namespace'
-    execute 'hi!  @lsp.type.enumMember         guifg=' . s:constant
-    execute 'hi!  link @lsp.typemod.variable.readonly @constant'
-    execute 'hi!  @lsp.type.const              guifg=' . s:constant
-    execute 'hi!  @lsp.typemod.const.static    guifg=' . s:constant
-    execute 'hi!  @lsp.typemod.const.constant    guifg=' . s:constant
-    execute 'hi!  @lsp.type.const.rust         guifg=' . s:constant
-    execute 'hi!  @lsp.type.macro              guifg=' . s:macro
+    call s:sethl('@lsp.type.enumMember',        s:constant,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@lsp.type.const',             s:constant,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@lsp.typemod.const.static',   s:constant,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@lsp.typemod.const.constant', s:constant,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@lsp.type.const.rust',        s:constant,     s:nocolor,      s:nocolor,          s:normal)
+    call s:sethl('@lsp.type.macro',             s:macro,        s:nocolor,      s:nocolor,          s:normal)
+    hi! link @lsp.type.class                    @type
+    hi! link @lsp.type.enum                     @type
+    hi! link @lsp.type.interface                @type
+    hi! link @lsp.type.struct                   @type
+    hi! link @lsp.type.type                     @type
+    hi! link @lsp.type.parameter                @variable.parameter
+    hi! link @lsp.type.variable                 @variable
+    hi! link @lsp.type.property                 @property
+    hi! link @lsp.type.function                 @function
+    hi! link @lsp.type.method                   @function.method
+    hi! link @lsp.type.macro                    @function.macro
+    hi! link @lsp.type.namespace                @namespace
+    hi! link @lsp.typemod.variable.readonly     @constant
 endif
 
+
 " Diagnostics
-execute 'hi!  DiagnosticError              guifg=' . s:err
-execute 'hi!  DiagnosticWarn               guifg=' . s:warn
-execute 'hi!  DiagnosticInfo               guifg=' . s:info
-execute 'hi!  DiagnosticHint               guifg=' . s:hint
-execute 'hi!  DiagnosticUnderlineError     gui=undercurl cterm=underline guisp=' . s:err
-execute 'hi!  DiagnosticUnderlineWarn      gui=undercurl cterm=underline guisp=' . s:warn
-execute 'hi!  DiagnosticUnderlineInfo      gui=undercurl cterm=underline guisp=' . s:info
-execute 'hi!  DiagnosticUnderlineHint      gui=undercurl cterm=underline guisp=' . s:hint
-execute 'hi!  DiagnosticVirtualTextError    guifg=' . s:err . ' guibg=' . s:bg
-execute 'hi!  DiagnosticVirtualTextWarn     guifg=' . s:warn . ' guibg=' . s:bg
-execute 'hi!  DiagnosticVirtualTextInfo     guifg=' . s:info . ' guibg=' . s:bg
-execute 'hi!  DiagnosticVirtualTextHint     guifg=' . s:hint . ' guibg=' . s:bg
+"            Group                          Foreground      Background      Special Color       Style
+call s:sethl('DiagnosticError',             s:err,          s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('DiagnosticWarn',              s:warn,         s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('DiagnosticInfo',              s:info,         s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('DiagnosticHint',              s:hint,         s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('DiagnosticUnderlineError',    s:nocolor,      s:nocolor,      s:err,              s:undercurl)
+call s:sethl('DiagnosticUnderlineWarn',     s:nocolor,      s:nocolor,      s:warn,             s:undercurl)
+call s:sethl('DiagnosticUnderlineInfo',     s:nocolor,      s:nocolor,      s:info,             s:undercurl)
+call s:sethl('DiagnosticUnderlineHint',     s:nocolor,      s:nocolor,      s:hint,             s:undercurl)
+
+call s:sethl('DiagnosticVirtualTextError',  s:err,          s:bg,           s:nocolor,          s:normal)
+call s:sethl('DiagnosticVirtualTextWarn',   s:warn,         s:bg,           s:nocolor,          s:normal)
+call s:sethl('DiagnosticVirtualTextInfo',   s:info,         s:bg,           s:nocolor,          s:normal)
+call s:sethl('DiagnosticVirtualTextHint',   s:hint,         s:bg,           s:nocolor,          s:normal)
+
 
 " Diff / git
-execute 'hi!  DiffAdd            guibg=' . s:diff_add
-execute 'hi!  DiffChange         guibg=' . s:diff_chg
-execute 'hi!  DiffDelete         guifg=' . s:diff_del_fg . ' guibg=' . s:diff_del
-execute 'hi!  DiffText           guibg=' . s:diff_chg . ' gui=bold cterm=bold'
-execute 'hi!  GitSignsAdd        guifg=' . s:diff_add_fg
-execute 'hi!  GitSignsChange     guifg=' . s:warn
-execute 'hi!  GitSignsDelete     guifg=' . s:diff_del_fg
+"            Group                          Foreground      Background      Special Color       Style
+call s:sethl('DiffAdd',                     s:nocolor,      s:diff_add,     s:nocolor,          s:normal)
+call s:sethl('DiffChange',                  s:nocolor,      s:diff_chg,     s:nocolor,          s:normal)
+call s:sethl('DiffDelete',                  s:diff_del_fg,  s:diff_del,     s:nocolor,          s:normal)
+call s:sethl('DiffAdd',                     s:nocolor,      s:diff_add,     s:nocolor,          s:normal)
+call s:sethl('DiffText',                    s:nocolor,      s:diff_chg,     s:nocolor,          s:bold)
+call s:sethl('GitSignsAdd',                 s:diff_add_fg,  s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('GitSignsChange',              s:warn,         s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('GitSignsDelete',              s:diff_del_fg,  s:nocolor,      s:nocolor,          s:normal)
 
 " --------------------------------------------------------------------------------------------------
