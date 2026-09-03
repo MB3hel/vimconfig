@@ -94,6 +94,7 @@ let s:diff_chg    = { 'guicolor': '#2a2a4a',   'term256color': '236', 'term16col
 " Color scheme settings
 " --------------------------------------------------------------------------------------------------
 
+" Setup
 if exists("syntax_on")
     syntax reset
 endif
@@ -101,7 +102,10 @@ highlight clear
 set background=dark
 let g:colors_name = "dark2026"
 
+
+" Helper library for sethl and some constants
 source <script>:h/helper.vim
+
 
 " Editor / UI
 "            Group                  Foreground      Background      Special Color       Style
@@ -121,90 +125,96 @@ call s:sethl('CursorLine',          s:nocolor,      s:bg_line,      s:nocolor,  
 call s:sethl('CursorColumn',        s:nocolor,      s:bg_line,      s:nocolor,          s:normal)
 call s:sethl('ColorColumn',         s:nocolor,      s:bg_line,      s:nocolor,          s:normal)
 
-execute 'hi!  LineNr             guifg=' . s:fg_muted
-execute 'hi!  CursorLineNr       guifg=' . s:fg_alt . ' gui=bold cterm=bold'
-execute 'hi!  SignColumn         guibg=' . s:bg
-execute 'hi!  FoldColumn         guifg=' . s:fg_muted . ' guibg=' . s:bg
-execute 'hi!  Folded             guifg=' . s:fg_dim . ' guibg=' . s:bg_line
+call s:sethl('LineNr',              S:fg_muted,     s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('CursorLineNr',        s:fg_alt,       s:nocolor,      s:nocolor,          s:bold)
+call s:sethl('SignColumn',          s:nocolor,      s:bg,           s:nocolor,          s:normal)
+call s:sethl('FoldColumn',          s:fg_muted,     s:bg,           s:nocolor,          s:normal)
+call s:sethl('Folded',              s:fg_dim,       s:bg_line,      s:nocolor,          s:normal)
 
-execute 'hi!  Visual             guibg=' . s:bg_select
-execute 'hi!  VisualNOS          guibg=' . s:bg_select
-execute 'hi!  Search             guifg=' . s:fg . ' guibg=' . s:bg_select
-execute 'hi!  IncSearch          guifg=' . s:white . ' guibg=' . s:accent
-execute 'hi!  CurSearch          guifg=' . s:white . ' guibg=' . s:accent
-execute 'hi!  MatchParen         guifg=' . s:accent_alt . ' gui=bold cterm=bold gui=underline cterm=underline'
+call s:sethl('Visual',              s:nocolor,      s:bg_select,    s:nocolor,          s:normal)
+call s:sethl('VisualNOS',           s:nocolor,      s:bg_select,    s:nocolor,          s:normal)
+call s:sethl('Search',              s:fg,           s:bg_select,    s:nocolor,          s:normal)
+call s:sethl('IncSearch',           s:white,        s:accent,       s:nocolor,          s:normal)
+call s:sethl('CurSearch',           s:white,        s:accent,       s:nocolor,          s:normal)
+call s:sethl('MatchParen',          s:accent_alt,   s:nocolor,      s:nocolor,          s:boldunderline)
 
-execute 'hi!  StatusLine         guifg=' . s:fg_dim . ' guibg=' . s:bg_alt
-execute 'hi!  StatusLineNC       guifg=' . s:fg_muted . ' guibg=' . s:bg_alt
-execute 'hi!  WinSeparator       guifg=' . s:border . ' guibg=' . s:bg
-execute 'hi!  VertSplit          guifg=' . s:border . ' guibg=' . s:bg
+call s:sethl('StatusLine',          s:fg_dim,       s:bg_alt,       s:nocolor,          s:normal)
+call s:sethl('StatusLineNC',        s:fg_muted,     s:bg_alt,       s:nocolor,          s:normal)
+call s:sethl('WinSeparator',        s:border,       s:bg,           s:nocolor,          s:normal)
+call s:sethl('VertSplit',           s:border,       s:bg,           s:nocolor,          s:normal)
 
-execute 'hi!  TabLine            guifg=' . s:fg_dim . ' guibg=' . s:bg_alt
-execute 'hi!  TabLineFill        guibg=' . s:bg_alt
-execute 'hi!  TabLineSel         guifg=' . s:fg_alt . ' guibg=' . s:bg . ' guisp=' . s:accent . ' gui=underline cterm=underline'
+call s:sethl('TabLine',             s:fg_dim,       s:bg_alt,       s:nocolor,          s:normal)
+call s:sethl('TabLineFill',         s:nocolor,      s:bg_alt,       s:nocolor,          s:normal)
+call s:sethl('TabLineSel',          s:fg_alt,       s:bg,           s:accent,           s:underline)
+
 
 " Popup menus / completion
-execute 'hi!  Pmenu              guifg=' . s:fg . ' guibg=' . s:bg_menu
-execute 'hi!  PmenuSel           guifg=' . s:fg_alt . ' guibg=' . s:accent_dim
-execute 'hi!  PmenuSbar          guibg=' . s:bg_line
-execute 'hi!  PmenuThumb         guibg=' . s:fg_muted
-execute 'hi!  PmenuKind          guifg=' . s:func . ' guibg=' . s:bg_menu
-execute 'hi!  PmenuKindSel       guifg=' . s:func . ' guibg=' . s:accent_dim
-execute 'hi!  PmenuExtra         guifg=' . s:fg_dim . ' guibg=' . s:bg_menu
-execute 'hi!  PmenuExtraSel      guifg=' . s:fg_alt . ' guibg=' . s:accent_dim
-execute 'hi!  PmenuMatch         guifg=' . s:accent_alt . ' gui=bold cterm=bold'
-execute 'hi!  PmenuMatchSel      guifg=' . s:accent_alt . ' guibg=' . s:accent_dim . ' gui=bold cterm=bold'
-execute 'hi!  WildMenu           guifg=' . s:fg_alt . ' guibg=' . s:accent_dim
+"            Group                  Foreground      Background      Special Color       Style
+call s:sethl('Pmenu',               s:fg,           s:bg_menu,      s:nocolor,          s:normal)
+call s:sethl('PmenuSel',            s:fg_alt,       s:accent_dim,   s:nocolor,          s:normal)
+call s:sethl('PmenuSbar',           s:nocolor,      s:bg_line,      s:nocolor,          s:normal)
+call s:sethl('PmenuThumb',          s:nocolor,      s:fg_muted,     s:nocolor,          s:normal)
+call s:sethl('PmenuKind',           s:func,         s:bg_menu,      s:nocolor,          s:normal)
+call s:sethl('PmenuKindSel',        s:func,         s:accent_dim,   s:nocolor,          s:normal)
+call s:sethl('PmenuExtra',          s:fg_dim,       s:bg_menu,      s:nocolor,          s:normal)
+call s:sethl('PmenuExtraSel',       s:fg_alt,       s:accent_dim,   s:nocolor,          s:normal)
+call s:sethl('PmenuMatch',          s:accent_alt,   s:nocolor,      s:nocolor,          s:bold)
+call s:sethl('PmenuMatchSel',       s:accent_alt,   s:accent_dim,   s:nocolor,          s:bold)
+call s:sethl('WildMenu',            s:fg_alt,       s:accent_dim,   s:nocolor,          s:normal)
+
 
 " Messages
-execute 'hi!  ErrorMsg           guifg=' . s:err
-execute 'hi!  WarningMsg         guifg=' . s:warn
-execute 'hi!  ModeMsg            guifg=' . s:fg_alt . ' gui=bold cterm=bold'
-execute 'hi!  MoreMsg            guifg=' . s:accent
-execute 'hi!  Question           guifg=' . s:accent
-execute 'hi!  Title              guifg=' . s:keyword . ' gui=bold cterm=bold'
-execute 'hi!  Directory          guifg=' . s:accent_alt
+"            Group                  Foreground      Background      Special Color       Style
+call s:sethl('ErrorMsg',            s:err,          s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('WarningMsg',          s:warn,         s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('ModeMsg',             s:fg_alt,       s:nocolor,      s:nocolor,          s:bold)
+call s:sethl('MoreMsg',             s:accent,       s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Question',            s:accent,       s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Title',               s:keyword,      s:nocolor,      s:nocolor,          s:bold)
+call s:sethl('Directory',           s:accent_alt,   s:nocolor,      s:nocolor,          s:normal)
+
 
 " Syntax (legacy groups)
-execute 'hi!  Comment            guifg=' . s:comment
-execute 'hi!  String             guifg=' . s:string
-execute 'hi!  Character          guifg=' . s:string
-execute 'hi!  Number             guifg=' . s:number
-execute 'hi!  Boolean            guifg=' . s:constant
-execute 'hi!  Float              guifg=' . s:number
+"            Group                  Foreground      Background      Special Color       Style
+call s:sethl('Comment',             s:comment,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('String',              s:string,       s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Character',           s:string,       s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Number',              s:number,       s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Boolean',             s:constant,     s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Float',               s:number,       s:nocolor,      s:nocolor,          s:normal)
 
-execute 'hi!  Identifier         guifg=' . s:variable
-execute 'hi!  Function           guifg=' . s:func
+call s:sethl('Identifier',          s:variable,     s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Function',            s:func,         s:nocolor,      s:nocolor,          s:normal)
 
-execute 'hi!  Statement          guifg=' . s:keyword
-execute 'hi!  Conditional        guifg=' . s:preproc
-execute 'hi!  Repeat             guifg=' . s:preproc
-execute 'hi!  Label              guifg=' . s:keyword
-execute 'hi!  Operator           guifg=' . s:operator
-execute 'hi!  Keyword            guifg=' . s:keyword
-execute 'hi!  Exception          guifg=' . s:preproc
+call s:sethl('Statement',           s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Conditional',         s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Repeat',              s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Label',               s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Operator',            s:operator,     s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Keyword',             s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Exception',           s:preproc,      s:nocolor,      s:nocolor,          s:normal)
 
-execute 'hi!  PreProc            guifg=' . s:preproc
-execute 'hi!  Include            guifg=' . s:preproc
-execute 'hi!  Define             guifg=' . s:preproc
-execute 'hi!  Macro              guifg=' . s:preproc
-execute 'hi!  PreCondit          guifg=' . s:preproc
+call s:sethl('PreProc',             s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Include',             s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Define',              s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Macro',               s:preproc,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('PreCondit',           s:preproc,      s:nocolor,      s:nocolor,          s:normal)
 
-execute 'hi!  Type               guifg=' . s:type
-execute 'hi!  StorageClass       guifg=' . s:keyword
-execute 'hi!  Structure          guifg=' . s:type
-execute 'hi!  Typedef            guifg=' . s:type
+call s:sethl('Type',                s:type,         s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('StorageClass',        s:keyword,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Structure',           s:type,         s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Typedef',             s:type,         s:nocolor,      s:nocolor,          s:normal)
 
-execute 'hi!  Special            guifg=' . s:annotation
-execute 'hi!  SpecialChar        guifg=' . s:regex
-execute 'hi!  Tag                guifg=' . s:tag
-execute 'hi!  Delimiter          guifg=' . s:fg
-execute 'hi!  SpecialComment     guifg=' . s:comment
-execute 'hi!  Debug              guifg=' . s:debug
+call s:sethl('Special',             s:annotation,   s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('SpecialChar',         s:regex,        s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Tag',                 s:tag,          s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Delimiter',           s:fg,           s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('SpecialComment',      s:comment,      s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Debug',               s:debug,        s:nocolor,      s:nocolor,          s:normal)
 
-execute 'hi!  Underlined gui=underline cterm=underline'
-execute 'hi!  Error              guifg=' . s:err
-execute 'hi!  Todo               guifg=' . s:warn . ' gui=bold cterm=bold'
+call s:sethl('Underlined',          s:nocolor,      s:nocolor,      s:nocolor,          s:underline)
+call s:sethl('Error',               s:err,          s:nocolor,      s:nocolor,          s:normal)
+call s:sethl('Todo',                s:warn,         s:nocolor,      s:nocolor,          s:bold)
 
 if has('nvim')
     " Treesitter
@@ -331,46 +341,5 @@ execute 'hi!  DiffText           guibg=' . s:diff_chg . ' gui=bold cterm=bold'
 execute 'hi!  GitSignsAdd        guifg=' . s:diff_add_fg
 execute 'hi!  GitSignsChange     guifg=' . s:warn
 execute 'hi!  GitSignsDelete     guifg=' . s:diff_del_fg
-
-" Telescope / Snacks picker
-execute 'hi!  TelescopeBorder            guifg=' . s:border . ' guibg=' . s:bg_menu
-execute 'hi!  TelescopeNormal            guifg=' . s:fg . ' guibg=' . s:bg_menu
-execute 'hi!  TelescopeSelection         guifg=' . s:fg_alt . ' guibg=' . s:accent_dim
-execute 'hi!  TelescopeMatching          guifg=' . s:accent_alt . ' gui=bold cterm=bold'
-execute 'hi!  TelescopePromptPrefix      guifg=' . s:accent
-
-execute 'hi!  SnacksPickerBorder         guifg=' . s:border . ' guibg=' . s:bg_menu
-execute 'hi!  SnacksPickerNormal         guifg=' . s:fg . ' guibg=' . s:bg_menu
-execute 'hi!  SnacksPickerListCursorLine    guibg=' . s:accent_dim
-execute 'hi!  SnacksPickerInputBorder    guifg=' . s:accent_dim . ' guibg=' . s:bg_menu
-execute 'hi!  SnacksPickerMatch          guifg=' . s:accent_alt . ' gui=bold cterm=bold'
-
-" blink.cmp (vague's missing groups too — keep parity with custom highlights)
-execute 'hi!  link BlinkCmpMenu Pmenu'
-execute 'hi!  BlinkCmpMenuBorder             guifg=' . s:border_alt . ' guibg=' . s:bg_menu
-execute 'hi!  link BlinkCmpMenuSelection PmenuSel'
-execute 'hi!  link BlinkCmpScrollBarThumb PmenuThumb'
-execute 'hi!  link BlinkCmpScrollBarGutter PmenuSbar'
-execute 'hi!  BlinkCmpLabel                  guifg=' . s:fg
-execute 'hi!  BlinkCmpLabelMatch             guifg=' . s:accent_alt . ' gui=bold cterm=bold'
-execute 'hi!  BlinkCmpLabelDeprecated        guifg=' . s:fg_muted . ' gui=strikethrough cterm=strikethrough'
-execute 'hi!  BlinkCmpLabelDetail            guifg=' . s:fg_dim
-execute 'hi!  BlinkCmpLabelDescription       guifg=' . s:fg_dim
-execute 'hi!  BlinkCmpSource                 guifg=' . s:fg_dim
-execute 'hi!  link BlinkCmpDoc NormalFloat'
-execute 'hi!  BlinkCmpDocBorder              guifg=' . s:border_alt . ' guibg=' . s:bg_menu
-
-" Bufferline (light touch)
-execute 'hi!  BufferLineFill             guibg=' . s:bg_alt
-execute 'hi!  BufferLineBackground       guifg=' . s:fg_dim . ' guibg=' . s:bg_alt
-execute 'hi!  BufferLineBufferSelected   guifg=' . s:fg_alt . ' guibg=' . s:bg . ' gui=bold cterm=bold'
-execute 'hi!  BufferLineIndicatorSelected    guifg=' . s:accent . ' guibg=' . s:bg
-
-" Notify / which-key
-execute 'hi!  WhichKey                   guifg=' . s:keyword
-execute 'hi!  WhichKeyGroup              guifg=' . s:func
-execute 'hi!  WhichKeyDesc               guifg=' . s:fg
-execute 'hi!  WhichKeySeparator          guifg=' . s:fg_dim
-execute 'hi!  WhichKeyFloat              guibg=' . s:bg_menu
 
 " --------------------------------------------------------------------------------------------------
