@@ -31,13 +31,13 @@
 let s:nocolor = { 'guicolor': 'NONE', 'term256color': 'NONE', 'term16color': 'NONE' }
 
 " Style options
-let s:normal        = 'gui=NONE           cterm=NONE'
-let s:bold          = 'gui=bold           cterm=bold'
-let s:italic        = 'gui=italic         cterm=italic'
-let s:underline     = 'gui=underline      cterm=underline'
-let s:undercurl     = 'gui=undercurl      cterm=underline'
-let s:strikethrough = 'gui=strikethrough  cterm=strikethrough'
-let s:boldunderline = 'gui=bold,underline cterm=bold,underline'
+let s:normal        = 'gui=NONE           cterm=NONE                term=NONE'
+let s:bold          = 'gui=bold           cterm=bold                term=bold'
+let s:italic        = 'gui=italic         cterm=italic              term=italic'
+let s:underline     = 'gui=underline      cterm=underline           term=underline'
+let s:undercurl     = 'gui=undercurl      cterm=underline           term=underline'
+let s:strikethrough = 'gui=strikethrough  cterm=strikethrough       term=strikethrough'
+let s:boldunderline = 'gui=bold,underline cterm=bold,underline      term=bold,underline'
 
 
 " Helper function to set highlights fully (have to explicitly set everything we don't want to NONE
