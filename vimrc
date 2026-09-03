@@ -22,7 +22,8 @@ endfunction
 " Disable vim replacing the terminal's default bg. Allows transparency to
 " still work in vim
 function DefaultBg()
-    hi Normal guibg=NONE ctermbg=NONE
+    hi! Normal guibg=NONE ctermbg=NONE
+    hi! SignColumn guibg=NONE ctermbg=NONE
 endfunction
 
 command -nargs=1 IndentSpaces call IndentSpaces(<q-args>)
@@ -30,7 +31,7 @@ command -nargs=1 IndentTabs call IndentTabs(<q-args>)
 
 " Add to vimrc_overrides when terminal uses transparent bg or if you want to
 " use default terminal bg color instead of having vim replace
-command UseDefaultBg hi Normal guibg=NONE ctermbg=NONE
+command UseDefaultBg call DefaultBg()
 
 " --------------------------------------------------------------------------------------------------
 
@@ -55,31 +56,18 @@ if $TERM != 'linux'
     set termguicolors                           " Use GUI colors always (unless we know term can't)
                                                 " Disable in overrides if terminal doesn't support
 endif
-set t_Co=16                                     " Allow 16 ANSI colors always (only matters if 
-                                                " notermguicolors; vim in PuTTY defaults to 8)
-colorscheme desert                              " Vim default is unreadable
-hi NonText ctermbg=NONE guibg=NONE              " Color for unused lines (no different)
-hi ColorColumn ctermbg=8 guibg=#4f5258          " Color for color column
-hi ColorColumn ctermfg=NONE guifg=NONE          " Text in color column retains color
-hi Visual ctermbg=8 guibg=#4f5258               " Selected text background color
-hi Visual ctermfg=NONE guifg=NONE cterm=NONE    " Selected text retains foreground color
-hi StatusLine term=bold,reverse                 " Default colors (older versions don't match)
-hi StatusLine ctermfg=236 ctermbg=144           " Default colors (older versions don't match)
-hi StatusLine guifg=#333333 guibg=#c2bfa5       " Default colors (older versions don't match)
-
-" nvim specific color scheme tweaks
-if has('nvim')
-    hi LspInlayHint ctermfg=66 guifg=#6d8787 gui=italic cterm=italic
+if &t_Co < 16 && $TERM != 'linux'
+    set t_Co=16                                 " Allow 16 ANSI colors unless we know the terminal can't
+                                                " (only matters if notermguicolors; vim in PuTTY defaults to 8)
 endif
 
-" For terminals known to only support 8 colors correct some vim settings
-" nvim still doesn't need this since its default theme is sane
-if $TERM == 'linux'
-    set t_Co=8                                  " This terminal doesn't support 16 colors
-    hi ColorColumn ctermbg=7
-    hi Visual ctermbg=7
-    hi StatusLine ctermfg=7 ctermbg=0 
+" Color scheme
+if empty($VIM_COLOR_SCHEME)
+    let scheme = "desert_customized"
+else
+    let scheme = $VIM_COLOR_SCHEME
 endif
+execute 'source ' . expand('<sfile>:p:h') . '/colors/' . scheme . '.vim'
 
 " Editing options
 set nowrap                                      " Disable line wrap
