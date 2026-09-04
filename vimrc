@@ -71,7 +71,7 @@ function SourceCustomColors(scheme)
     execute 'source ' . $HOME . '/.vimconfig/colors/' . a:scheme . '.vim'
 endfunction
 command -nargs=1 CustomColors call SourceCustomColors(<q-args>)
-CustomColors desert_custom
+CustomColors nvim_default
 
 " Editing options
 set nowrap                                      " Disable line wrap
