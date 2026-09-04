@@ -24,6 +24,10 @@ endfunction
 function DefaultBg()
     hi! Normal guibg=NONE ctermbg=NONE
     hi! SignColumn guibg=NONE ctermbg=NONE
+    hi! DiagnosticVirtualTextError guibg=NONE ctermbg=NONE
+    hi! DiagnosticVirtualTextWarn guibg=NONE ctermbg=NONE
+    hi! DiagnosticVirtualTextInfo guibg=NONE ctermbg=NONE
+    hi! DiagnosticVirtualTextHint guibg=NONE ctermbg=NONE
 endfunction
 
 command -nargs=1 IndentSpaces call IndentSpaces(<q-args>)
@@ -71,7 +75,7 @@ function SourceCustomColors(scheme)
     execute 'source ' . $HOME . '/.vimconfig/colors/' . a:scheme . '.vim'
 endfunction
 command -nargs=1 CustomColors call SourceCustomColors(<q-args>)
-CustomColors nvim_default
+CustomColors dark2026
 
 " Editing options
 set nowrap                                      " Disable line wrap
