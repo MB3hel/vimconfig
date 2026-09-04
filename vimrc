@@ -61,13 +61,17 @@ if &t_Co < 16 && $TERM != 'linux'
                                                 " (only matters if notermguicolors; vim in PuTTY defaults to 8)
 endif
 
-" Color scheme
-if empty($VIM_COLOR_SCHEME)
-    let scheme = "desert_customized"
-else
-    let scheme = $VIM_COLOR_SCHEME
-endif
-execute 'source ' . expand('<sfile>:p:h') . '/colors/' . scheme . '.vim'
+" Color scheme settings
+" Uses a custom function to load out of my cloned .vimconfig folder
+" instead of normal colorschemes because it avoids needing to deal with
+" symlinking or copying the colors folder. Which is a mess on windows
+" This function can be called in vimrc overrides. Or after changing t_Co
+" manually to re-apply the color scheme
+function SourceCustomColors(scheme)
+    execute 'source ' . $HOME . '/.vimconfig/colors/' . a:scheme . '.vim'
+endfunction
+command -nargs=1 CustomColors call SourceCustomColors(<q-args>)
+CustomColors desert_custom
 
 " Editing options
 set nowrap                                      " Disable line wrap
