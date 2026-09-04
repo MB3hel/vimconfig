@@ -1,5 +1,8 @@
 if has('nvim')
     colorscheme default
+    
+    " Darken background of default color scheme
+    hi normal guibg=NvimDarkGrey1
 else
     " Vim format export obtained from https://gist.github.com/gcanat/3e397f414ed64a1c58efcac32a33a252
     if exists("syntax_on")
@@ -108,5 +111,8 @@ else
     hi WarningMsg gui=NONE term=NONE cterm=NONE guifg=#fce094 guibg=NONE ctermfg=222 ctermbg=NONE
     hi link WildMenu PmenuSel
     hi lCursor gui=NONE term=NONE cterm=NONE guifg=#14161b guibg=#e0e2ea ctermfg=233 ctermbg=254
+
+    " Darken background of default color scheme
+    hi normal guibg=#07080d
 endif
 
