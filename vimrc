@@ -78,7 +78,7 @@ function SourceCustomColors(scheme)
     execute 'source ' . $HOME . '/.vimconfig/colors/' . a:scheme . '.vim'
 endfunction
 command -nargs=1 CustomColors call SourceCustomColors(<q-args>)
-CustomColors dark2026
+CustomColors dark2026_alt
 
 " Editing options
 set nowrap                                      " Disable line wrap

@@ -116,3 +116,8 @@ else
     hi normal guibg=#07080d
 endif
 
+" Nvim uses blue underline for SpellRare, but red for SpellError and yellow for SpellCap
+" Make all blue by linking to SpellRare
+hi! link SpellBad SpellRare
+hi! link SpellCap SpellRare
+hi! link SpellLocal SpellRare
