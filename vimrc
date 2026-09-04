@@ -23,11 +23,14 @@ endfunction
 " still work in vim
 function DefaultBg()
     hi! Normal guibg=NONE ctermbg=NONE
+    hi! NormalNc guibg=NONE ctermbg=NONE
     hi! SignColumn guibg=NONE ctermbg=NONE
     hi! DiagnosticVirtualTextError guibg=NONE ctermbg=NONE
     hi! DiagnosticVirtualTextWarn guibg=NONE ctermbg=NONE
     hi! DiagnosticVirtualTextInfo guibg=NONE ctermbg=NONE
     hi! DiagnosticVirtualTextHint guibg=NONE ctermbg=NONE
+    hi! VertSplit guibg=NONE ctermbg=NONE
+    hi! WinSeparator guibg=NONE ctermbg=NONE
 endfunction
 
 command -nargs=1 IndentSpaces call IndentSpaces(<q-args>)
