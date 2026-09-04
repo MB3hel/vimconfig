@@ -82,7 +82,12 @@ require('cmp').setup {
 -- Setup of language servers and autocomplete
 --------------------------------------------------------------------------------
 -- pyright (python)
-if vim.fn.executable('pyright') == 1 then
+if vim.fn.executable('basedpyright-langserver') == 1 then
+    vim.lsp.config('basedpyright', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
+    })
+    vim.lsp.enable('basedpyright')
+elseif vim.fn.executable('pyright-langserver') == 1 then
     vim.lsp.config('pyright', {
         capabilities = require('cmp_nvim_lsp').default_capabilities()
     })
